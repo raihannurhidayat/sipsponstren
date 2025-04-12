@@ -12,7 +12,7 @@ export default function ManageUSerSection() {
     queryFn: async () => {
       const dataUser = await authClient.admin.listUsers({
         query: {
-          limit: 10,
+          // limit: 10,
         },
       });
 
