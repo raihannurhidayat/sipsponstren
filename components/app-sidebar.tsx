@@ -4,6 +4,7 @@ import * as React from "react";
 import {
   AudioWaveform,
   BookOpen,
+  BookTemplate,
   Bot,
   Command,
   Frame,
@@ -81,6 +82,11 @@ const data = {
       name: "Pengajuan Surat",
       url: "/admin/letter-requests",
       icon: LetterText,
+    },
+    {
+      name: "Kelola Template Surat",
+      url: "/admin/letter-templates",
+      icon: BookTemplate,
     },
   ],
 };
