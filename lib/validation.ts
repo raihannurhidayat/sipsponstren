@@ -45,3 +45,29 @@ export const createUserFormSchema = z.object({
 });
 
 export type CreateUserFormSchema = z.infer<typeof createUserFormSchema>;
+
+export const updatePasswordUserFormSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: "Name must be at least 2 characters" })
+    .max(50, { message: "Name cannot exceed 50 characters" })
+    .optional(),
+  email: z
+    .string()
+    .email({ message: "Please enter a valid email address" })
+    .min(2)
+    .max(50)
+    .optional(),
+  password: z
+    .string()
+    .max(50, { message: "Password cannot exceed 50 characters" })
+    .optional()
+    .refine((val) => !val || val.length >= 8, {
+      message: "Password must be at least 8 characters",
+    }),
+  role: z.enum(["admin", "user"]),
+});
+
+export type UpdatePasswordUserFormSchema = z.infer<
+  typeof updatePasswordUserFormSchema
+>;

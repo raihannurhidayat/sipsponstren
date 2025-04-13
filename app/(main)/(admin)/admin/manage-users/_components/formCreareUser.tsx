@@ -87,7 +87,7 @@ export default function FormCreateUser() {
   }
 
   return (
-    <Card className="w-full max-w-md mask-x-to-background">
+    <Card className="w-full mask-x-to-background">
       <CardHeader>
         <CardTitle>Create Account</CardTitle>
         <CardDescription>Create account for another access</CardDescription>
