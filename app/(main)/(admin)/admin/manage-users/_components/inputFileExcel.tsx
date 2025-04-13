@@ -144,7 +144,7 @@ export default function InputFileExcel() {
   }
 
   return (
-    <Card className="w-full max-w-md mask-x-to-background">
+    <Card className="w-full mask-x-to-background">
       <CardHeader>
         <CardTitle>Create Account With Excel</CardTitle>
         <CardDescription>Create account for excel file</CardDescription>

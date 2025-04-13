@@ -7,7 +7,7 @@ function ManageCreateUserPage({ user }: WithAuthAdminProps) {
   return (
     <React.Fragment>
       <h1>Selamat Datang {user.name}</h1>
-      <div className="flex flex-col lg:flex-row gap-2 ">
+      <div className="flex flex-col lg:flex-row gap-6 ">
         <div className="w-1/2 flex items-start justify-center py-4">
           <FormCreateUser />
         </div>

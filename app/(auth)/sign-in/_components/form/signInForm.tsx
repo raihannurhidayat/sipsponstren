@@ -1,6 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { signInFormSchema, SignInFormSchema } from "@/lib/validation";
@@ -12,7 +19,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export default function SignInForm() {
-
   const form = useForm<SignInFormSchema>({
     mode: "onChange",
     defaultValues: {
@@ -35,7 +41,10 @@ export default function SignInForm() {
         },
         {
           onRequest: (ctx) => {
-            toast.loading("Proses Sedang Berlangsung", { id: "sign-in", richColors: true });
+            toast.loading("Proses Sedang Berlangsung", {
+              id: "sign-in",
+              richColors: true,
+            });
           },
           onSuccess: (ctx) => {
             form.reset();
@@ -43,10 +52,8 @@ export default function SignInForm() {
               id: "sign-in",
               richColors: true,
             });
-            console.log(ctx);
           },
           onError: (ctx) => {
-            console.log(ctx);
             if (ctx.error.code === "INVALID_EMAIL_OR_PASSWORD") {
               form.setError("password", {
                 message: "email atau password salah, silahkan coba lagi",
@@ -65,7 +72,7 @@ export default function SignInForm() {
   async function onSubmit(values: SignInFormSchema) {
     mutation.mutate(values);
   }
-  
+
   return (
     <Form {...form}>
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
