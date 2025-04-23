@@ -13,8 +13,15 @@ export default function TemplatePreview(props: TemplatePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { width } = useDimensions(containerRef as RefObject<HTMLElement>);
 
-  const { logo, header1, header2, addressStreet, addressTelp, addressCode } =
-    props?.templatesFields;
+  const {
+    logo,
+    header1,
+    header2,
+    addressStreet,
+    addressTelp,
+    addressCode,
+    content,
+  } = props?.templatesFields;
 
   const [logoSrc, setLogoSrc] = useState(logo instanceof File ? "" : logo);
 
@@ -64,6 +71,13 @@ export default function TemplatePreview(props: TemplatePreviewProps) {
           </div>
         </div>
         {/* template header end */}
+
+        {/* content start */}
+        <div  className="revert-tailwind">
+          <div dangerouslySetInnerHTML={{ __html: content! }} />
+        </div>
+
+        {/* content end */}
       </div>
     </div>
   );

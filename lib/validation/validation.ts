@@ -104,6 +104,12 @@ export const headerTemplateSchema = z.object({
 
 export type HeaderTemplateSchema = z.infer<typeof headerTemplateSchema>;
 
+export const contentTemplateSchema = z.object({
+  content: optionalString,
+});
+
+export type ContentTemplateSchema = z.infer<typeof contentTemplateSchema>
+
 export const templateSchema = z.object({
   ...generalInfoTemplateSchema.shape,
 });

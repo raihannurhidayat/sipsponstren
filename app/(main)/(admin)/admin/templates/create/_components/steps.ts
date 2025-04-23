@@ -2,6 +2,7 @@ import React from "react";
 import GeneralInforForm from "./form/general-info-form";
 import { EditorFormProps } from "@/lib/types";
 import HeadersForm from "./form/headers-form";
+import ContentForm from "./form/content-form";
 
 export const steps: {
   key: string;
@@ -21,7 +22,7 @@ export const steps: {
   {
     title: "Content",
     key: "content",
-    component: GeneralInforForm,
+    component: ContentForm,
   },
   {
     title: "Footer",
