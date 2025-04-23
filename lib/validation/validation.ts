@@ -71,3 +71,41 @@ export const updatePasswordUserFormSchema = z.object({
 export type UpdatePasswordUserFormSchema = z.infer<
   typeof updatePasswordUserFormSchema
 >;
+
+const optionalString = z.string().trim().optional().or(z.literal(""));
+
+export const generalInfoTemplateSchema = z.object({
+  title: z.string().min(2).max(50),
+  description: optionalString,
+});
+
+export type GeneralInfoTemplateSchema = z.infer<
+  typeof generalInfoTemplateSchema
+>;
+
+export const headerTemplateSchema = z.object({
+  logo: z
+    .custom<File | undefined>()
+    .refine(
+      (file) =>
+        !file || (file instanceof File && file.type.startsWith("image/")),
+      "Must be an image file"
+    )
+    .refine(
+      (file) => !file || file.size < 1024 * 1024 * 4,
+      "File must be less then 4MB"
+    ),
+  header1: optionalString,
+  header2: optionalString,
+  addressStreet: optionalString,
+  addressTelp: optionalString,
+  addressCode: optionalString,
+});
+
+export type HeaderTemplateSchema = z.infer<typeof headerTemplateSchema>;
+
+export const templateSchema = z.object({
+  ...generalInfoTemplateSchema.shape,
+});
+
+export type TemplateSchema = z.infer<typeof templateSchema>;

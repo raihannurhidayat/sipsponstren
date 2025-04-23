@@ -85,7 +85,7 @@ const data = {
     },
     {
       name: "Kelola Template Surat",
-      url: "/admin/letter-templates",
+      url: "/admin/templates",
       icon: BookTemplate,
     },
   ],
