@@ -26,7 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { authClient } from "@/lib/auth-client";
-import { createUserFormSchema, CreateUserFormSchema } from "@/lib/validation";
+import { createUserFormSchema, CreateUserFormSchema } from "@/lib/validation/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";

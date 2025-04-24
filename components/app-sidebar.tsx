@@ -16,6 +16,7 @@ import {
   Settings2,
   SquareTerminal,
   UsersRoundIcon,
+  ViewIcon,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -85,8 +86,13 @@ const data = {
     },
     {
       name: "Kelola Template Surat",
-      url: "/admin/letter-templates",
+      url: "/admin/templates",
       icon: BookTemplate,
+    },
+    {
+      name: "Preview Surat",
+      url: "/admin/templates/review",
+      icon: ViewIcon,
     },
   ],
 };

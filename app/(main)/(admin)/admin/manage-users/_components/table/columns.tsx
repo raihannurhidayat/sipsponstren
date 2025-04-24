@@ -54,7 +54,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   UpdatePasswordUserFormSchema,
   updatePasswordUserFormSchema,
-} from "@/lib/validation";
+} from "@/lib/validation/validation";
 import {
   Form,
   FormControl,
