@@ -18,41 +18,45 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { authClient } from "@/lib/auth-client";
-import { signUpFormSchema, SignUpFormSchema } from "@/lib/validation/validation";
+import { createUserFormSchema, CreateUserFormSchema } from "@/lib/validation/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export default function SignUpPage() {
-  const router = useRouter();
-
-  const form = useForm<SignUpFormSchema>({
+export default function FormCreateUser() {
+  const form = useForm<CreateUserFormSchema>({
     mode: "onChange",
     defaultValues: {
       name: "",
       email: "",
       password: "",
+      role: "user",
     },
-    resolver: zodResolver(signUpFormSchema),
+    resolver: zodResolver(createUserFormSchema),
   });
 
   const mutation = useMutation({
-    mutationKey: ["sign-up"],
-    mutationFn: async (values: SignUpFormSchema) => {
-      console.log(values);
-      const { email, password, name } = values;
+    mutationKey: ["create-user"],
+    mutationFn: async (values: CreateUserFormSchema) => {
+      const { email, password, name, role } = values;
 
-      const { data, error } = await authClient.signUp.email(
+      const newUser = await authClient.admin.createUser(
         {
+          name,
           email,
           password,
-          name,
+          role,
         },
         {
           onRequest: (ctx) => {
@@ -61,34 +65,36 @@ export default function SignUpPage() {
           onSuccess: (ctx) => {
             form.reset();
             toast.success("Proses Berhasil Dilakukan", { id: "sign-up" });
-            router.push("/sign-in");
           },
           onError: (ctx) => {
             toast.dismiss("sign-up");
             console.log(ctx);
-            form.setError("email", {
-              type: "required",
-              message: "Email telah digunakan, silahkan gunakan email lain",
-            });
+
+            if (ctx.error.code === "USER_ALREADY_EXISTS") {
+              form.setError("email", {
+                type: "required",
+                message: "Email telah digunakan, silahkan gunakan email lain",
+              });
+            }
           },
         }
       );
     },
   });
 
-  async function onSubmit(values: SignUpFormSchema) {
+  async function onSubmit(values: CreateUserFormSchema) {
     mutation.mutate(values);
   }
 
   return (
-    <Card className="w-full max-w-md mask-x-to-background">
+    <Card className="w-full mask-x-to-background">
       <CardHeader>
-        <CardTitle>Registrasi</CardTitle>
-        <CardDescription>Create your account to get started.</CardDescription>
+        <CardTitle>Create Account</CardTitle>
+        <CardDescription>Create account for another access</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
             <FormField
               control={form.control}
               name="name"
@@ -125,6 +131,28 @@ export default function SignUpPage() {
 
             <FormField
               control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Role</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Pilih kategori" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="user">user</SelectItem>
+                      <SelectItem value="admin">Admin</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="password"
               render={({ field }) => (
                 <FormItem>
@@ -149,20 +177,12 @@ export default function SignUpPage() {
               {mutation.isPending ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
-                "Sign Up"
+                "Create Account"
               )}
             </Button>
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex justify-center">
-        <p className="text-sm text-muted-foreground">
-          Already have an account?{" "}
-          <Link href={"/sign-in"} className="text-primary hover:underline">
-            Sign in
-          </Link>
-        </p>
-      </CardFooter>
     </Card>
   );
 }
