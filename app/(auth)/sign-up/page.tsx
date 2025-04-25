@@ -45,7 +45,6 @@ export default function SignUpPage() {
   const mutation = useMutation({
     mutationKey: ["sign-up"],
     mutationFn: async (values: SignUpFormSchema) => {
-      console.log(values);
       const { email, password, name } = values;
 
       const { data, error } = await authClient.signUp.email(
