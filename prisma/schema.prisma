@@ -14,6 +14,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  user
+  admin
+}
+
 model User {
   id            String    @id
   name          String
@@ -25,8 +30,27 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
+  role       Role      @default(user)
+  banned     Boolean?
+  banReason  String?
+  banExpires DateTime?
+  Template   Template?
+
   @@unique([email])
   @@map("user")
+}
+
+model Template {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  content     String
+  createdBy   String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+
+  @@map("templates")
 }
 
 model Session {
@@ -39,6 +63,8 @@ model Session {
   userAgent String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  impersonatedBy String?
 
   @@unique([token])
   @@map("session")
