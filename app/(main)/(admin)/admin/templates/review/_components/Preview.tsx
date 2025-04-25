@@ -21,7 +21,7 @@ interface PreviewProps {
   className?: string;
 }
 
-export default function Preview(props: PreviewProps) {
+export default function Preview() {
   Font.register({
     family: "Times New Roman",
     src: "/fonts/times new roman.ttf",

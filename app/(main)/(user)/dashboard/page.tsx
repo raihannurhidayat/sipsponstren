@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { prisma } from "@/lib/prisma";
 
 export default async function DashboardPage() {
   const session = await auth.api.getSession({
@@ -34,17 +35,39 @@ export default async function DashboardPage() {
     redirect("/admin");
   }
 
-  // Mock data
+  const letterCountAwait = prisma.letter.count();
+
+  const letterPendingCountAwait = prisma.letter.count({
+    where: {
+      approved_at: null, // belum diset (pending)
+    },
+  });
+
+  const letterApproveCountAwait = prisma.letter.count({
+    where: {
+      approved_at: {
+        not: null, // sudah diset (approved)
+      },
+    },
+  });
+
+  const [letterCount, letterPendingCount, letterApproveCount] =
+    await Promise.all([
+      letterCountAwait,
+      letterPendingCountAwait,
+      letterApproveCountAwait,
+    ]);
+
+  const stats = {
+    created: letterCount,
+    approved: letterApproveCount,
+    pending: letterPendingCount,
+  };
+
   const user = {
     name: session.user.name,
     role: session.user.role,
     id: session.user.id,
-  };
-
-  const stats = {
-    created: 12,
-    approved: 8,
-    pending: 3,
   };
 
   const recentLetters = [
@@ -89,9 +112,7 @@ export default async function DashboardPage() {
             <h1 className="text-2xl font-bold tracking-tight">
               Welcome back, {user.name}
             </h1>
-            <p className="text-muted-foreground capitalize">
-              {user.role}
-            </p>
+            <p className="text-muted-foreground capitalize">{user.role}</p>
           </div>
           <Button asChild size="lg" className="gap-2">
             <Link href="/create">

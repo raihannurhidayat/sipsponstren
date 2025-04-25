@@ -63,7 +63,7 @@ const data = {
     },
     {
       name: "Riwayat Surat",
-      url: "/letters",
+      url: "/letter-history",
       icon: FileText,
     },
     {

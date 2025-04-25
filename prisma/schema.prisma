@@ -35,6 +35,7 @@ model User {
   banReason  String?
   banExpires DateTime?
   Template   Template?
+  Letter     Letter[]
 
   @@unique([email])
   @@map("user")
@@ -51,6 +52,27 @@ model Template {
   user        User     @relation(fields: [createdBy], references: [id], onDelete: Cascade)
 
   @@map("templates")
+}
+
+enum Status {
+  Review
+  Approved
+  Rejected
+}
+
+model Letter {
+  id           String   @id @default(cuid())
+  userId       String
+  template   String
+  data         String
+  status Status @default(Review)
+  submitted_at DateTime @default(now())
+  approved_at  DateTime?
+  pdfUrl       String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("letters")
 }
 
 model Session {
