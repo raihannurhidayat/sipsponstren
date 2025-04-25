@@ -8,7 +8,7 @@ import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBpWyC1CrFDGzWaqUly6a2eG-QrIULwF14",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
   authDomain: "next-app-44743.firebaseapp.com",
   projectId: "next-app-44743",
   storageBucket: "next-app-44743.appspot.com",
