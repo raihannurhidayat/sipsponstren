@@ -13,7 +13,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import withAuthAdmin, { WithAuthAdminProps } from "@/layout/withAuthAdmin";
 
 export default function LayoutAdminPage({
   children,
