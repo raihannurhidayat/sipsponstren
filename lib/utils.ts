@@ -6,15 +6,16 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getInitials(name: string) {
-  // Split the name into words by space
-  const words = name.split(" ");
+  const words = name.trim().split(" ");
+  
+  // Handle satu kata atau lebih
+  if (words.length === 1) {
+    return words[0][0].toUpperCase();
+  }
 
-  // Get the first letter of the first word and the first letter of the second word
-  const initials = words[0][0] + words[1][0];
-
-  // Return the initials in uppercase
-  return initials.toUpperCase();
+  return (words[0][0] + words[1][0]).toUpperCase();
 }
+
 
 export function formattedDate(rawDate: Date) {
   return new Intl.DateTimeFormat("en-US", {
