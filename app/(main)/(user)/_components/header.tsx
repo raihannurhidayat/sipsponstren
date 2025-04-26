@@ -75,7 +75,7 @@ export default function Header() {
 
   return (
     <div className="sticky top-0 z-10 flex h-16 items-center gap-4 bg-background px-4 md:px-6 w-full">
-      <div className="hidden w-full max-w-sm md:flex">
+      {/* <div className="hidden w-full max-w-sm md:flex">
         <div className="relative w-full">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
@@ -84,7 +84,7 @@ export default function Header() {
             className="w-full rounded-lg bg-background pl-8 md:w-[300px] lg:w-[400px]"
           />
         </div>
-      </div>
+      </div> */}
 
       <div className="ml-auto flex items-center gap-4">
         {/* <DropdownMenu>
