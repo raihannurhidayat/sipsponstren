@@ -48,28 +48,33 @@ export default function Header() {
 
   // const unreadCount = notifications.filter((n) => !n.read).length;
 
-  const router = useRouter()
+  const router = useRouter();
 
   const { session } = useGetUserClient();
 
   async function handleSignOut() {
-      await authClient.signOut(
-        {},
-        {
-          onSuccess: (ctx) => {
-            toast.success("Proses Berhasil Dilakukan", { id: "sign-out", richColors: true });
-            router.push("/");
-          },
-          onRequest: (ctx) => {
-            toast.loading("Proses Sedang Berjalan", { id: "sign-out", richColors: true });
-          },
-        }
-      );
-    }
+    await authClient.signOut(
+      {},
+      {
+        onSuccess: (ctx) => {
+          toast.success("Proses Berhasil Dilakukan", {
+            id: "sign-out",
+            richColors: true,
+          });
+          router.push("/");
+        },
+        onRequest: (ctx) => {
+          toast.loading("Proses Sedang Berjalan", {
+            id: "sign-out",
+            richColors: true,
+          });
+        },
+      }
+    );
+  }
 
   return (
     <div className="sticky top-0 z-10 flex h-16 items-center gap-4 bg-background px-4 md:px-6 w-full">
-
       <div className="hidden w-full max-w-sm md:flex">
         <div className="relative w-full">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -125,23 +130,23 @@ export default function Header() {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            {session?.user ? <Button variant="ghost" size="icon" className="rounded-full">
-              <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src="/placeholder.svg?height=32&width=32"
-                  alt="User"
-                />
-                <AvatarFallback>{getInitials(session.user.name)}</AvatarFallback>
-              </Avatar>
-            </Button> : <Button variant="ghost" size="icon" className="rounded-full">
-              <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src="/placeholder.svg?height=32&width=32"
-                  alt="User"
-                />
-                <AvatarFallback>US</AvatarFallback>
-              </Avatar>
-            </Button>}
+            {session?.user ? (
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage alt="User" />
+                  <AvatarFallback>
+                    {getInitials(session.user.name)}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            ) : (
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage alt="User" />
+                  <AvatarFallback>US</AvatarFallback>
+                </Avatar>
+              </Button>
+            )}
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>

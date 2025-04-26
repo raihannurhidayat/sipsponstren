@@ -21,33 +21,26 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import withAuthUser, { WithAuthUserProps } from "@/layout/withAuthUser";
 
-export default async function DashboardPage() {
-  const session = await auth.api.getSession({
-    headers: await headers(),
+async function DashboardPage({ user: userInfo }: WithAuthUserProps) {
+  const letterCountAwait = prisma.letter.count({
+    where: {
+      userId: userInfo.id,
+    },
   });
-
-  if (!session) {
-    redirect("/");
-  }
-
-  if (session.user.role === "admin") {
-    redirect("/admin");
-  }
-
-  const letterCountAwait = prisma.letter.count();
 
   const letterPendingCountAwait = prisma.letter.count({
     where: {
-      approved_at: null, // belum diset (pending)
+      status: "Review",
+      userId: userInfo.id,
     },
   });
 
   const letterApproveCountAwait = prisma.letter.count({
     where: {
-      approved_at: {
-        not: null, // sudah diset (approved)
-      },
+      userId: userInfo.id,
+      status: "Approved"
     },
   });
 
@@ -65,9 +58,9 @@ export default async function DashboardPage() {
   };
 
   const user = {
-    name: session.user.name,
-    role: session.user.role,
-    id: session.user.id,
+    name: userInfo.name,
+    role: userInfo.role,
+    id: userInfo.id,
   };
 
   const recentLetters = [
@@ -219,3 +212,5 @@ export default async function DashboardPage() {
     </div>
   );
 }
+
+export default withAuthUser(DashboardPage);

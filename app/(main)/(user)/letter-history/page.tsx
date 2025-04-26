@@ -1,8 +1,16 @@
 import { prisma } from "@/lib/prisma";
 import { SubmissionHistory } from "./_components/SubmissionHistory";
+import withAuthUser, { WithAuthUserProps } from "@/layout/withAuthUser";
 
-export default async function LetterHistoryPage() {
-  const letter = await prisma.letter.findMany({});
+async function LetterHistoryPage({ user }: WithAuthUserProps) {
+  const letter = await prisma.letter.findMany({
+    where: {
+      userId: user.id,
+    },
+    orderBy: {
+      submitted_at: "desc"
+    }
+  });
 
   return (
     <div>
@@ -11,3 +19,5 @@ export default async function LetterHistoryPage() {
     </div>
   );
 }
+
+export default withAuthUser(LetterHistoryPage);

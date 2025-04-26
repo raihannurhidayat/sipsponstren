@@ -22,73 +22,7 @@ import {
 } from "@/components/ui/select";
 import { ProgressTimeline } from "./ProgressTimeline";
 import { Letter, Status } from "@prisma/client";
-import { formatted } from "@/constants/helpers";
 import { formattedDate } from "@/lib/utils";
-
-type Submissions = {
-  id: string;
-  title: string;
-  date: string;
-  status: string;
-  letterType: string;
-  requestId: string;
-  progress: number;
-  totalSteps: number;
-};
-
-// Sample data for demonstration
-const submissions: Submissions[] = [
-  {
-    id: "SUB-2025-001",
-    title: "Surat Keterangan Aktif",
-    date: "April 24, 2025",
-    status: "In Review",
-    letterType: "Academic Status",
-    requestId: "REQ-2025-001",
-    progress: 1,
-    totalSteps: 3,
-  },
-  {
-    id: "SUB-2025-002",
-    title: "Surat Rekomendasi Beasiswa",
-    date: "April 22, 2025",
-    status: "Approved",
-    letterType: "Recommendation",
-    requestId: "REQ-2025-002",
-    progress: 3,
-    totalSteps: 3,
-  },
-  {
-    id: "SUB-2025-003",
-    title: "Surat Izin Penelitian",
-    date: "April 20, 2025",
-    status: "Rejected",
-    letterType: "Research Permission",
-    requestId: "REQ-2025-003",
-    progress: 2,
-    totalSteps: 3,
-  },
-  {
-    id: "SUB-2025-004",
-    title: "Surat Keterangan Lulus",
-    date: "April 18, 2025",
-    status: "In Review",
-    letterType: "Graduation",
-    requestId: "REQ-2025-004",
-    progress: 2,
-    totalSteps: 3,
-  },
-  {
-    id: "SUB-2025-005",
-    title: "Surat Permohonan Magang",
-    date: "April 15, 2025",
-    status: "Approved",
-    letterType: "Internship",
-    requestId: "REQ-2025-005",
-    progress: 3,
-    totalSteps: 3,
-  },
-];
 
 interface SubmissionHistoryProps {
   letter: Letter[];
@@ -207,10 +141,6 @@ function SubmissionCard({ submission }: { submission: Letter }) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-sm">
-              {/* <div className="flex items-center text-muted-foreground">
-                <span className="font-medium mr-2">Letter Type:</span>{" "}
-                {submission.templateId}
-              </div> */}
               <div className="flex items-center text-muted-foreground">
                 <span className="font-medium mr-2">Request ID:</span>{" "}
                 {submission.id}

@@ -1,7 +1,8 @@
 import React from "react";
 import RequestView from "./_components/request-view";
+import withAuthUser, { WithAuthUserProps } from "@/layout/withAuthUser";
 
-export default function RequestLetterPage() {
+function RequestLetterPage({ user }: WithAuthUserProps) {
   return (
     <div>
       <section className="mb-6">
@@ -12,3 +13,5 @@ export default function RequestLetterPage() {
     </div>
   );
 }
+
+export default withAuthUser(RequestLetterPage);
