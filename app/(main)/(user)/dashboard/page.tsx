@@ -108,9 +108,9 @@ async function DashboardPage({ user: userInfo }: WithAuthUserProps) {
             <p className="text-muted-foreground capitalize">{user.role}</p>
           </div>
           <Button asChild size="lg" className="gap-2">
-            <Link href="/create">
+            <Link href="/request">
               <FilePlus className="h-4 w-4" />
-              Create New Letter
+              Tambah Pengajuan
             </Link>
           </Button>
         </div>

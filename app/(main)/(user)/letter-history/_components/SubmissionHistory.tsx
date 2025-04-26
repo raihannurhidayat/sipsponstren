@@ -167,14 +167,21 @@ function SubmissionCard({ submission }: { submission: Letter }) {
           <span>View Details</span>
         </Button>
         {submission.status === "Approved" ? (
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex items-center gap-1"
+          <a
+            href={submission?.pdfUrl!}
+            target="_blank"
+            rel="noopener noreferrer"
+            download
           >
-            <Download className="h-3.5 w-3.5" />
-            <span>Download PDF</span>
-          </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="flex items-center gap-1"
+            >
+              <Download className="h-3.5 w-3.5" />
+              <span>Download PDF</span>
+            </Button>
+          </a>
         ) : undefined}
       </CardFooter>
     </Card>
