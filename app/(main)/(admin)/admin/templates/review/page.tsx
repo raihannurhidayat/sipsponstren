@@ -22,12 +22,7 @@ export default function ReviewPage() {
 
       <section className="relative grow">
         <div className="absolute bottom-0 top-0 flex w-full">
-          <PDFViewClient
-            templateFields={
-              templateFields ? templateFields : ({} as FieldsTemplateSchema)
-            }
-            setTemplateFields={setTemplateFields}
-          />
+          <PDFViewClient />
         </div>
       </section>
     </div>

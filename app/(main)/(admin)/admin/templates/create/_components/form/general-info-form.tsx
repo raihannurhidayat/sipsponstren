@@ -18,6 +18,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function GeneralInforForm(props: EditorFormProps) {
+  const { setFieldsTemplate, fieldsTemplate } = props;
   const form = useForm<GeneralInfoTemplateSchema>({
     resolver: zodResolver(generalInfoTemplateSchema),
     mode: "onChange",
@@ -36,7 +37,7 @@ export default function GeneralInforForm(props: EditorFormProps) {
     });
 
     return () => subscription.unsubscribe();
-  }, [form, props.fieldsTemplate, props.setFieldsTemplate]);
+  }, [form, setFieldsTemplate, fieldsTemplate]);
 
   return (
     <div className="max-w-xl mx-auto space-y-6">
