@@ -290,8 +290,8 @@ export default function TableRequestsLetter() {
         <CardContent className="p-0">
           {/* Bungkus table dengan div overflow-x-auto dan force scroll */}
           <div className="w-full overflow-x-scroll">
-            <div className="min-w-[900px]">
-              {currentItems?.length > 0 ? (
+            {currentItems?.length > 0 ? (
+              <div className="min-w-[900px]">
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-gray-50 hover:bg-gray-50">
@@ -359,19 +359,19 @@ export default function TableRequestsLetter() {
                     ))}
                   </TableBody>
                 </Table>
-              ) : (
-                <div className="text-center py-10">
-                  <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
-                  <h3 className="mt-4 text-lg font-medium">
-                    Tidak ada pengajuan yang ditemukan
-                  </h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Coba sesuaikan pencarian atau filter Anda untuk menemukan
-                    apa yang Anda cari.
-                  </p>
-                </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="text-center py-10 container">
+                <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
+                <h3 className="mt-4 text-lg font-medium">
+                  Tidak ada pengajuan yang ditemukan
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Coba sesuaikan pencarian atau filter Anda untuk menemukan apa
+                  yang Anda cari.
+                </p>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
