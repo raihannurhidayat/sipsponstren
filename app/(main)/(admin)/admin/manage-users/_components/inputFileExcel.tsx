@@ -19,6 +19,7 @@ import { CreateUserFormSchema } from "@/lib/validation/validation";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { DownloadExampleButton } from "./DownloadExampleButton";
 
 const REQUIRED_FIELDS = ["name", "email", "password", "role"];
 
@@ -148,6 +149,7 @@ export default function InputFileExcel() {
       <CardHeader>
         <CardTitle>Create Account With Excel</CardTitle>
         <CardDescription>Create account for excel file</CardDescription>
+        <DownloadExampleButton />
       </CardHeader>
       <CardContent>
         <ExcelDropzone

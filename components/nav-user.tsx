@@ -30,6 +30,7 @@ import { Button } from "./ui/button";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { getInitials } from "@/lib/utils";
 
 export function NavUser({
   user,
@@ -76,9 +77,17 @@ export function NavUser({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <Avatar className="h-8 w-8 rounded-lg">
+              {/* <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+              </Avatar> */}
+              <Avatar className="h-8 w-8">
+                <AvatarImage alt="Admin" />
+                <AvatarFallback className="uppercase">
+                  {getInitials(
+                    session?.user.name ? session?.user.name : "admin"
+                  )}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">

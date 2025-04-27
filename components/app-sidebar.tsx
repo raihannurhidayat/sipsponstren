@@ -71,16 +71,16 @@ const data = {
       url: "/admin/letter-requests",
       icon: LetterText,
     },
-    {
-      name: "Kelola Template Surat",
-      url: "/admin/templates",
-      icon: BookTemplate,
-    },
-    {
-      name: "Preview Surat",
-      url: "/admin/templates/review",
-      icon: ViewIcon,
-    },
+    // {
+    //   name: "Kelola Template Surat",
+    //   url: "/admin/templates",
+    //   icon: BookTemplate,
+    // },
+    // {
+    //   name: "Preview Surat",
+    //   url: "/admin/templates/review",
+    //   icon: ViewIcon,
+    // },
   ],
 };
 

@@ -281,14 +281,15 @@ export const columns: ColumnDef<UserWithRole>[] = [
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Change Password User</DialogTitle>
-                <DialogDescription>
+
+          <AlertDialog open={isEditOpen} onOpenChange={setIsEditOpen}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Change Password User</AlertDialogTitle>
+                <AlertDialogDescription>
                   Perbarui password pengguna di bawah ini.
-                </DialogDescription>
-              </DialogHeader>
+                </AlertDialogDescription>
+              </AlertDialogHeader>
               <Form {...formInput}>
                 <form
                   className="space-y-4 py-2"
@@ -366,8 +367,7 @@ export const columns: ColumnDef<UserWithRole>[] = [
                       </FormItem>
                     )}
                   />
-                  
-                  <DialogFooter>
+                  <div className="flex items-center gap-2 justify-end">
                     <Button
                       disabled={mutation.isPending}
                       variant="outline"
@@ -382,11 +382,11 @@ export const columns: ColumnDef<UserWithRole>[] = [
                         "Simpan"
                       )}
                     </Button>
-                  </DialogFooter>
+                  </div>
                 </form>
               </Form>
-            </DialogContent>
-          </Dialog>
+            </AlertDialogContent>
+          </AlertDialog>
         </>
       );
     },

@@ -20,6 +20,7 @@ import { getInitials } from "@/lib/utils";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Header() {
   // const [notifications, setNotifications] = useState([
@@ -52,39 +53,8 @@ export default function Header() {
 
   const { session } = useGetUserClient();
 
-  async function handleSignOut() {
-    await authClient.signOut(
-      {},
-      {
-        onSuccess: (ctx) => {
-          toast.success("Proses Berhasil Dilakukan", {
-            id: "sign-out",
-            richColors: true,
-          });
-          router.push("/");
-        },
-        onRequest: (ctx) => {
-          toast.loading("Proses Sedang Berjalan", {
-            id: "sign-out",
-            richColors: true,
-          });
-        },
-      }
-    );
-  }
-
   return (
     <div className="sticky top-0 z-10 flex h-16 items-center gap-4 bg-background px-4 md:px-6 w-full">
-      {/* <div className="hidden w-full max-w-sm md:flex">
-        <div className="relative w-full">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder="Search letters..."
-            className="w-full rounded-lg bg-background pl-8 md:w-[300px] lg:w-[400px]"
-          />
-        </div>
-      </div> */}
 
       <div className="ml-auto flex items-center gap-4">
         {/* <DropdownMenu>
@@ -148,13 +118,14 @@ export default function Header() {
               </Button>
             )}
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="w-[250px]">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleSignOut}>Logout</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href={"/profile"}>Profile</Link>
+            </DropdownMenuItem>
+            {/* <DropdownMenuSeparator /> */}
+            {/* <DropdownMenuItem onClick={handleSignOut}>Logout</DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

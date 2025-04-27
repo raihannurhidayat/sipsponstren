@@ -6,12 +6,19 @@ import InputFileExcel from "../_components/inputFileExcel";
 function ManageCreateUserPage({ user }: WithAuthAdminProps) {
   return (
     <React.Fragment>
-      <h1>Selamat Datang {user.name}</h1>
+      <div className="pt-6">
+        <h1 className="text-2xl font-bold tracking-tight">
+          Create User
+        </h1>
+        <p className="text-muted-foreground">
+          Create User Account For access the System
+        </p>
+      </div>
       <div className="flex flex-col lg:flex-row gap-6 ">
-        <div className="w-1/2 flex items-start justify-center py-4">
+        <div className="md:w-1/2 flex items-start justify-center py-4">
           <FormCreateUser />
         </div>
-        <div className="w-1/2 flex items-start justify-center py-4">
+        <div className="md:w-1/2 flex items-start justify-center py-4">
           <InputFileExcel />
         </div>
       </div>
