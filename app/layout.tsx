@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ReactQueryClientProvider from "@/provider/react-query-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,12 +20,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} antialiased font-[family-name:var(--font-inter)]`}
-      >
-        {children}
-      </body>
-    </html>
+    <ReactQueryClientProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${inter.variable} antialiased font-[family-name:var(--font-inter)]`}
+        >
+          {children}
+          <Toaster position="top-right" />
+        </body>
+      </html>
+    </ReactQueryClientProvider>
   );
 }
