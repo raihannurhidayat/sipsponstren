@@ -3,3 +3,7 @@ export const formatted = new Intl.DateTimeFormat("id-ID", {
   month: "long",
   year: "numeric",
 }).format(new Date());
+
+export const formattedYear = new Intl.DateTimeFormat("id-ID", {
+  year: "numeric",
+}).format(new Date());

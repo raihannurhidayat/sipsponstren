@@ -85,10 +85,12 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
   return (
     <div className="w-full py-8 px-4 flex justify-center items-center">
       <Card className="w-full max-w-md mask-x-to-background">
-        {/* <CardHeader>
-          <CardTitle>Registrasi</CardTitle>
-          <CardDescription>Isi data untuk kelengkapan surat</CardDescription>
-        </CardHeader> */}
+        <CardHeader className="space-y-1">
+          <CardTitle>Form Surat Keterangan Santri</CardTitle>
+          <CardDescription>
+            Silahkan isi form dibawah ini dengan benar
+          </CardDescription>
+        </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -157,16 +159,7 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
                 )}
               />
 
-              <Button
-                type="submit"
-                className="w-full cursor-pointer"
-                // disabled={mutation.isPending}
-              >
-                {/* {mutation.isPending ? (
-                    <Loader2 className="size-4 animate-spin" />
-                  ) : (
-                    "Sign Up"
-                   )} */}
+              <Button type="submit" className="w-full cursor-pointer">
                 Submit
               </Button>
             </form>

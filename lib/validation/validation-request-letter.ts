@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { string, z } from "zod";
 
 export const requestLetterSchema = z.object({
   template: z.string(),
@@ -16,3 +16,18 @@ export const suratKeteranganSchema = z.object({
 });
 
 export type SuratKeteranganSchema = z.infer<typeof suratKeteranganSchema>;
+
+export const suratIzinRombonganSchema = z.object({
+  nama: z.string(),
+  kelas: z.string(),
+  kepentingan: z.string(),
+  anggota: z.array(
+    z.object({
+      nama: z.string(),
+      kelas: z.string(),
+      asrama: string(),
+    })
+  ),
+});
+
+export type SuratIzinRombonganSchema = z.infer<typeof suratIzinRombonganSchema>;

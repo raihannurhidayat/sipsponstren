@@ -7,13 +7,13 @@ import React from "react";
 
 const suratOptions = [
   {
-    id: "s1",
+    id: "SKS",
     title: "Surat Keterangan Santri",
     icon: <GraduationCapIcon className="size-10 text-slate-600" />,
   },
   {
-    id: "s2",
-    title: "Surat Rekomendasi Beasiswa",
+    id: "SIR",
+    title: "Surat Izin Rombongan",
     icon: <FileTextIcon className="size-10 text-slate-600" />,
   },
   {
@@ -33,7 +33,7 @@ export default function RequestList(props: RequestLetterProps) {
               ...props.requestLetterData,
               template: surat.title,
             });
-            props.setCurrentStep("pengisian-data");
+            props.setCurrentStep(surat.id);
           }}
           key={surat.id}
           className="border-2 border-dashed border-slate-400 rounded-2xl p-6 hover:shadow-md transition cursor-pointer flex flex-col items-center text-center"
