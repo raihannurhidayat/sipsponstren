@@ -1,27 +1,10 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
+import { suratOptions } from "@/constants/templateOptions";
 import { RequestLetterProps } from "@/lib/types";
 import { GraduationCapIcon, FileTextIcon, FileOutput } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-
-const suratOptions = [
-  {
-    id: "SKS",
-    title: "Surat Keterangan Santri",
-    icon: <GraduationCapIcon className="size-10 text-slate-600" />,
-  },
-  {
-    id: "SIR",
-    title: "Surat Izin Rombongan",
-    icon: <FileTextIcon className="size-10 text-slate-600" />,
-  },
-  {
-    id: "s3",
-    title: "Surat Izin",
-    icon: <FileOutput className="size-10 text-slate-600" />,
-  },
-];
 
 export default function RequestList(props: RequestLetterProps) {
   return (

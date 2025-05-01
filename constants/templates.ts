@@ -598,7 +598,7 @@ export function templateSurat(data: string) {
           SURAT KETERANGAN
         </h1>
         <p style="font-size: 0.75rem; margin: 0">
-          NO : 001/SKT/A/PPMHF/III/${formattedYear}
+          NO : ${value.nomenclature}
         </p>
       </div>
 
@@ -775,7 +775,7 @@ export function templateSurat(data: string) {
 
 export function templateSuratIzinRombongan(data: string) {
   const value = JSON.parse(data);
-
+  console.log(value.nomenclature.nomenclature, "value surat izin rombongan"); 
   return `<html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -832,7 +832,7 @@ export function templateSuratIzinRombongan(data: string) {
           SURAT IZIN ROMBONGAN
         </h1>
         <p style="font-size: 0.75rem; margin: 0">
-          Nomor : 001/PPMHF/A/SIR/I/${formattedYear}
+          Nomor : ${value.nomenclature}
         </p>
       </div>
 

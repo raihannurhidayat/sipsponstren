@@ -21,13 +21,15 @@ import useGetUserClient from "@/hooks/useGetUserClient";
 import { RequestLetterProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { SuratIzinRombonganSchema } from "@/lib/validation/validation-request-letter";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
-import { createLetter } from "./action";
+import { createLetter, updateNomenclatureLetterRequest } from "./action";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { nomenclatureLetterRequest } from "@/app/(main)/(admin)/admin/letter-requests/_components/actions";
+import { incrementNomenclature } from "@/constants/helpers";
 
 export default function FormSuratIzinRombongan(props: RequestLetterProps) {
   const { session } = useGetUserClient();
@@ -54,6 +56,17 @@ export default function FormSuratIzinRombongan(props: RequestLetterProps) {
     control: form.control,
   });
 
+  const nomenclature = useQuery({
+    queryKey: ["nomenclature"],
+    queryFn: async () => {
+      const res = await nomenclatureLetterRequest(
+        props.requestLetterData.template
+      );
+
+      return res?.nomenclature;
+    },
+  });
+
   const mutation = useMutation({
     mutationKey: ["request-letter"],
     mutationFn: async () => {
@@ -62,6 +75,13 @@ export default function FormSuratIzinRombongan(props: RequestLetterProps) {
         data: props.requestLetterData.data,
         template: props.requestLetterData.template,
       });
+
+      const newNomenclature = incrementNomenclature(nomenclature?.data!);
+
+      await updateNomenclatureLetterRequest(
+        props.requestLetterData.template,
+        newNomenclature
+      );
 
       if (!res.success) {
         throw new Error(res.error || "Something went wrong");
@@ -84,9 +104,14 @@ export default function FormSuratIzinRombongan(props: RequestLetterProps) {
   });
 
   const onSubmit = async (data: SuratIzinRombonganSchema) => {
+    const value = {
+      ...data,
+      nama: session?.user.name!,
+      nomenclature: nomenclature?.data,
+    };
     props.setRequestLetterData({
       ...props.requestLetterData,
-      data: JSON.stringify(data),
+      data: JSON.stringify(value),
     });
 
     mutation.mutate();

@@ -22,12 +22,14 @@ import useGetUserClient from "@/hooks/useGetUserClient";
 import { prisma } from "@/lib/prisma";
 import { RequestLetterProps } from "@/lib/types";
 import { SuratKeteranganSchema } from "@/lib/validation/validation-request-letter";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { createLetter } from "./action";
+import { createLetter, updateNomenclatureLetterRequest } from "./action";
+import { nomenclatureLetterRequest } from "@/app/(main)/(admin)/admin/letter-requests/_components/actions";
+import { incrementNomenclature } from "@/constants/helpers";
 
 export default function FormSuratKeterangan(props: RequestLetterProps) {
   const { session } = useGetUserClient();
@@ -44,6 +46,17 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
     },
   });
 
+  const nomenclature = useQuery({
+    queryKey: ["nomenclature"],
+    queryFn: async () => {
+      const res = await nomenclatureLetterRequest(
+        props.requestLetterData.template
+      );
+
+      return res?.nomenclature;
+    },
+  });
+
   const mutation = useMutation({
     mutationKey: ["request-letter"],
     mutationFn: async () => {
@@ -56,6 +69,13 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
       if (!res.success) {
         throw new Error(res.error || "Something went wrong");
       }
+
+      const newNomenclature = incrementNomenclature(nomenclature?.data!);
+      console.log({ newNomenclature });
+      await updateNomenclatureLetterRequest(
+        props.requestLetterData.template,
+        newNomenclature
+      );
 
       return res.data;
     },
@@ -74,9 +94,14 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
   });
 
   function onSubmit(values: SuratKeteranganSchema) {
+    const value = {
+      ...values,
+      nomenclature: nomenclature?.data,
+    };
+
     props.setRequestLetterData({
       ...props.requestLetterData,
-      data: JSON.stringify(values),
+      data: JSON.stringify(value),
     });
 
     mutation.mutate();

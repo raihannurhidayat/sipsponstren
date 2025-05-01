@@ -2,24 +2,12 @@
 
 import * as React from "react";
 import {
-  AudioWaveform,
-  BookOpen,
-  BookTemplate,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
+  Inbox,
   LayoutDashboardIcon,
   LetterText,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
   UsersRoundIcon,
-  ViewIcon,
 } from "lucide-react";
 
-import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
@@ -70,6 +58,11 @@ const data = {
       name: "Pengajuan Surat",
       url: "/admin/letter-requests",
       icon: LetterText,
+    },
+    {
+      name: "Kelola Surat",
+      url: "/admin/manage-letters",
+      icon: Inbox,
     },
     // {
     //   name: "Kelola Template Surat",
