@@ -13,7 +13,7 @@ import {
   Font,
 } from "@react-pdf/renderer";
 import Html from "react-pdf-html";
-import { templateSuratKeterangan } from "@/constants/templates";
+import { templateSuratIzin, templateSuratIzinRombongan, templateSuratKeterangan } from "@/constants/templates";
 
 interface PreviewProps {
   templateFields: FieldsTemplateSchema; // Replace with the actual type if available
@@ -27,7 +27,8 @@ export default function Preview() {
     src: "/fonts/times new roman.ttf",
   });
 
-  const html = templateSuratKeterangan;
+  // const html = templateSuratIzin;
+  const html = templateSuratIzinRombongan("");
 
   return (
     <PDFViewer className="min-h-screen w-full">

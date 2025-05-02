@@ -19,22 +19,24 @@ export default function Crumbs(props: BreadcrumbsProps) {
     <div className="flex justify-center">
       <Breadcrumb>
         <BreadcrumbList>
-          {stepsRequest.map((step) => (
-            <React.Fragment key={step.key}>
-              <BreadcrumbItem>
-                {step.key === props.currentStep ? (
-                  <BreadcrumbPage>{step.title}</BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink asChild>
-                    <button onClick={() => props.setCurrentStep(step.key)}>
-                      {step.title}
-                    </button>
-                  </BreadcrumbLink>
-                )}
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="last:hidden" />
-            </React.Fragment>
-          ))}
+          <React.Fragment>
+            <BreadcrumbItem>
+              {stepsRequest[0].key === props.currentStep ? (
+                <BreadcrumbPage>{stepsRequest[0].title}</BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink asChild>
+                  <button
+                    onClick={() => props.setCurrentStep(stepsRequest[0].key)}
+                  >
+                    {stepsRequest[0].title}
+                  </button>
+                </BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
+            <BreadcrumbSeparator className="last:hidden" />
+          </React.Fragment>
+          {/* {stepsRequest.map((step) => (
+          ))} */}
         </BreadcrumbList>
       </Breadcrumb>
     </div>

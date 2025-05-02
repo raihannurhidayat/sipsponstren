@@ -60,17 +60,29 @@ enum Status {
   Rejected
 }
 
-model Letter {
+model letterType {
   id           String   @id @default(cuid())
+  slug         String?
+  icon         String?
+  name         String?  @unique
+  nomenclature String?
+  status       String   @default("active")
+  description  String?
+  createdAt    DateTime @default(now())
+
+  @@map("letter_types")
+}
+
+model Letter {
+  id           String    @id @default(cuid())
   userId       String
-  template   String
+  template     String
   data         String
-  status Status @default(Review)
-  submitted_at DateTime @default(now())
+  status       Status    @default(Review)
+  submitted_at DateTime  @default(now())
   approved_at  DateTime?
   pdfUrl       String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("letters")
 }

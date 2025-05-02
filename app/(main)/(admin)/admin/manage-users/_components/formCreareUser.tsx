@@ -26,7 +26,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { authClient } from "@/lib/auth-client";
-import { createUserFormSchema, CreateUserFormSchema } from "@/lib/validation/validation";
+import {
+  createUserFormSchema,
+  CreateUserFormSchema,
+} from "@/lib/validation/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
@@ -68,7 +71,6 @@ export default function FormCreateUser() {
           },
           onError: (ctx) => {
             toast.dismiss("sign-up");
-            console.log(ctx);
 
             if (ctx.error.code === "USER_ALREADY_EXISTS") {
               form.setError("email", {

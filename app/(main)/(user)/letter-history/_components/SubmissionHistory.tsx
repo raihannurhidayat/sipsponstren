@@ -162,10 +162,6 @@ function SubmissionCard({ submission }: { submission: Letter }) {
       </CardContent>
 
       <CardFooter className="px-6 py-4 bg-slate-50 flex flex-wrap gap-2 justify-end">
-        <Button variant="outline" size="sm" className="flex items-center gap-1">
-          <Eye className="h-3.5 w-3.5" />
-          <span>View Details</span>
-        </Button>
         {submission.status === "Approved" ? (
           <a
             href={submission?.pdfUrl!}
