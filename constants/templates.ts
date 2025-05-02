@@ -775,7 +775,7 @@ export function templateSurat(data: string) {
 
 export function templateSuratIzinRombongan(data: string) {
   const value = JSON.parse(data);
-  console.log(value.nomenclature.nomenclature, "value surat izin rombongan"); 
+
   return `<html lang="id">
   <head>
     <meta charset="UTF-8" />

@@ -5,10 +5,10 @@ import { rejects } from "assert";
 
 export async function GET(
   _request: Request,
-  context: Promise<{ params: { id: string } }>
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = (await context).params;
+    const { id } = await params;
 
     const template = formatSlugToTitle(id);
 
@@ -31,6 +31,7 @@ export async function GET(
 
     return NextResponse.json({
       letters,
+      status: letterType?.status,
       letterType,
       total: letters.length,
       approved: letters.filter((letter) => letter.status === "Approved").length,
@@ -41,6 +42,34 @@ export async function GET(
     console.error("API Error:", error);
     return NextResponse.json(
       { error: "An error occurred while fetching the data." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { status } = await request.json();
+
+    const { id } = await params;
+
+    const template = formatSlugToTitle(id);
+
+    const updatedTemplate = await prisma.letterType.update({
+      where: { name: template },
+      data: {
+        status: status,
+      },
+    });
+
+    return NextResponse.json(updatedTemplate);
+  } catch (error) {
+    console.error("[TEMPLATE_STATUS_UPDATE]", error);
+    return NextResponse.json(
+      { error: "Failed to update template status" },
       { status: 500 }
     );
   }

@@ -15,21 +15,24 @@ export async function GET() {
     },
   });
 
-  const suratTypeKeteranganSantri = await prisma.letterType.findFirst({
+  const suratTypeKeteranganSantri = await prisma.letterType.findUnique({
     where: { name: "Surat Keterangan Santri" },
   });
-  const suratTypeIzinRombongan = await prisma.letterType.findFirst({
-    where: { name: "Surat Keterangan Santri" },
+
+  const suratTypeIzinRombongan = await prisma.letterType.findUnique({
+    where: { name: "Surat Izin Rombongan" },
   });
 
   const data = {
     suratKeteranganSantri: {
       total: suratKeteranganSantri,
-      suratTypeKeteranganSantri,
+      suratTypeKeteranganSantri: { ...suratTypeKeteranganSantri },
+      status: suratTypeKeteranganSantri?.status,
     },
     suratIzinRombongan: {
       total: suratIzinRombongan,
-      suratTypeIzinRombongan,
+      suratTypeIzinRombongan: { ...suratTypeIzinRombongan },
+      status: suratTypeIzinRombongan?.status,
     },
   };
 

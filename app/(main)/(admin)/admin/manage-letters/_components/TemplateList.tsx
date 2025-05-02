@@ -8,6 +8,7 @@ import {
   ChevronRight,
   CheckCircle,
   XCircle,
+  Loader2,
 } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -29,7 +30,6 @@ export function TemplateList() {
       const res = await fetch("/api/admin/templates");
       const data = await res.json();
       if (!res.ok) throw new Error("Network response was not ok");
-      console.log(data);
       return data;
     },
   });
@@ -39,23 +39,19 @@ export function TemplateList() {
       id: "1",
       title: "Surat Keterangan Santri",
       href: "surat-keterangan-santri",
-      status:
-        query.data?.suratKeteranganSantri.suratTypeKeteranganSantri.status ||
-        "",
-      submissions: query.data?.suratKeteranganSantri.total || 0,
+      status: query.data?.suratKeteranganSantri?.status,
+      submissions: query?.data?.suratKeteranganSantri?.total || 0,
     },
     {
       id: "2",
       title: "Surat Izin Rombongan",
       href: "surat-izin-rombongan",
-      status:
-        query.data?.suratIzinRombongan.suratTypeIzinRombongan.status || "",
-      submissions: query.data?.suratIzinRombongan.total || 0,
+      status: query.data?.suratIzinRombongan?.status,
+      submissions: query?.data?.suratIzinRombongan?.total || 0,
     },
   ];
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [filterType, setFilterType] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
   const [view, setView] = useState<"grid" | "list">("grid");
 
@@ -117,7 +113,11 @@ export function TemplateList() {
         </div>
       </div>
 
-      {view === "grid" ? (
+      {query.isLoading ? (
+        <div className="flex h-32 items-center justify-center">
+          <Loader2 className="size-8 animate-spin" />
+        </div>
+      ) : view === "grid" ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredTemplates.map((template) => (
             <Card
@@ -173,9 +173,7 @@ export function TemplateList() {
         <div className="rounded-md border">
           <div className="grid grid-cols-12 gap-4 bg-gray-100 p-4 font-medium">
             <div className="col-span-5">Template</div>
-            <div className="col-span-2">Type</div>
             <div className="col-span-2">Status</div>
-            <div className="col-span-2">Last Updated</div>
             <div className="col-span-1">Action</div>
           </div>
           {filteredTemplates.map((template) => (
@@ -188,22 +186,20 @@ export function TemplateList() {
               <div className="col-span-2">
                 <Badge
                   variant={
-                    template.status === "available" ? "default" : "secondary"
+                    template.status === "active" ? "default" : "secondary"
                   }
                 >
-                  {template.status === "available" ? (
+                  {template.status === "active" ? (
                     <CheckCircle className="mr-1 h-3 w-3" />
                   ) : (
                     <XCircle className="mr-1 h-3 w-3" />
                   )}
-                  {template.status === "available"
-                    ? "Available"
-                    : "Unavailable"}
+                  {template.status === "active" ? "Available" : "Unavailable"}
                 </Badge>
               </div>
 
               <div className="col-span-1">
-                <Link href={`/admin/manage-letters/${template.id}`}>
+                <Link href={`/admin/manage-letters/${template.href}`}>
                   <Button variant="ghost" size="sm">
                     <ChevronRight className="h-4 w-4" />
                   </Button>

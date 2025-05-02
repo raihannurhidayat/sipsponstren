@@ -71,7 +71,7 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
       }
 
       const newNomenclature = incrementNomenclature(nomenclature?.data!);
-      console.log({ newNomenclature });
+
       await updateNomenclatureLetterRequest(
         props.requestLetterData.template,
         newNomenclature

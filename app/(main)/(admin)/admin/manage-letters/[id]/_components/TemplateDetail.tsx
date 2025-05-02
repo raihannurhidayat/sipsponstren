@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   FileText,
   ToggleLeft,
@@ -11,7 +11,6 @@ import {
   XCircle,
   Clock,
   Info,
-  User,
   Search,
   Loader2,
 } from "lucide-react";
@@ -25,7 +24,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -58,13 +56,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Letter, letterType } from "@prisma/client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   decrementNomenclature,
   resetTo001WithCurrentYear,
 } from "@/constants/helpers";
-import { nomenclatureLetterRequest } from "../../../letter-requests/_components/actions";
 import { updateNomenclatureLetterRequest } from "@/app/(main)/(user)/request/_components/form/action";
 import { toast } from "sonner";
 
@@ -76,6 +72,7 @@ export function TemplateDetail({ id }: { id: string }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [isAvailable, setIsAvailable] = useState<boolean>();
 
   const queryClient = useQueryClient();
 
@@ -85,12 +82,38 @@ export function TemplateDetail({ id }: { id: string }) {
       const res = await fetch(`/api/admin/templates/${id}`);
       const data = await res.json();
 
+      setIsAvailable(data.status === "active" ? true : false);
+
       return data;
     },
   });
-  const [isAvailable, setIsAvailable] = useState(
-    template?.data?.status === "active"
-  );
+
+  const { mutate: updateStatus } = useMutation({
+    mutationFn: async (newStatus: boolean) => {
+      const response = await fetch(`/api/admin/templates/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          status: newStatus ? "active" : "inactive",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Gagal memperbarui status");
+      }
+      return response.json();
+    },
+  });
+
+  const handleStatusChange = () => {
+    const newStatus = !isAvailable;
+
+    setIsAvailable(newStatus);
+    updateStatus(newStatus);
+    setStatusDialogOpen(false);
+  };
 
   if (template.isLoading) {
     return (
@@ -116,11 +139,6 @@ export function TemplateDetail({ id }: { id: string }) {
       return matchesSearch && matchesStatus;
     }
   );
-
-  const handleStatusChange = () => {
-    setIsAvailable(!isAvailable);
-    setStatusDialogOpen(false);
-  };
 
   // Calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;

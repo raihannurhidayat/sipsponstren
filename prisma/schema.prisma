@@ -62,6 +62,8 @@ enum Status {
 
 model letterType {
   id           String   @id @default(cuid())
+  slug         String?
+  icon         String?
   name         String?  @unique
   nomenclature String?
   status       String   @default("active")
