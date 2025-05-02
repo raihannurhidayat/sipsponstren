@@ -6,6 +6,7 @@ import {
   Clock,
   Eye,
   FileText,
+  Loader2,
   Search,
   ThumbsDown,
   XCircle,
@@ -72,7 +73,7 @@ export default function TableRequestsLetter() {
   );
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["request-letter-admin"],
     queryFn: async () => {
       const res = await fetch("/api/admin/request-letter");
@@ -286,95 +287,103 @@ export default function TableRequestsLetter() {
         </div>
       </div>
 
-      <Card>
-        <CardContent className="p-0">
-          {/* Bungkus table dengan div overflow-x-auto dan force scroll */}
-          <div className="w-full overflow-x-scroll">
-            {currentItems?.length > 0 ? (
-              <div className="min-w-[900px]">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="bg-gray-50 hover:bg-gray-50">
-                      <TableHead className="w-[80px]">No.</TableHead>
-                      <TableHead>Letter Type</TableHead>
-                      <TableHead>Requested By</TableHead>
-                      <TableHead>Submission Date</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {currentItems?.map((letter, key) => (
-                      <TableRow key={key} className="hover:bg-gray-50/50">
-                        <TableCell className="font-medium">{key + 1}</TableCell>
-                        <TableCell>{letter.template}</TableCell>
-                        <TableCell>{letter.username}</TableCell>
-                        <TableCell>
-                          {formattedDate(letter.submitted_at)}
-                        </TableCell>
-                        <TableCell>
-                          {renderStatusBadge(letter.status)}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2 flex-wrap">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => handleViewDetails(letter)}
-                            >
-                              <Eye className="h-4 w-4 mr-1" />
-                              View
-                            </Button>
-                            {letter.status !== "Approved" &&
-                              letter.status !== "Rejected" && (
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="text-green-600 border-green-200 hover:bg-green-50 hover:text-green-700"
-                                  onClick={() =>
-                                    handleStatusChange(letter, "Approved")
-                                  }
-                                >
-                                  <CheckCircle className="h-4 w-4 mr-1" />
-                                  Approve
-                                </Button>
-                              )}
-                            {letter.status !== "Approved" &&
-                              letter.status !== "Rejected" && (
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
-                                  onClick={() =>
-                                    handleStatusChange(letter, "Rejected")
-                                  }
-                                >
-                                  <XCircle className="h-4 w-4 mr-1" />
-                                  Reject
-                                </Button>
-                              )}
-                          </div>
-                        </TableCell>
+      {isLoading ? (
+        <div className="min-h-[50vh] flex items-center justify-center">
+          <Loader2 className="size-8 animate-spin" />
+        </div>
+      ) : (
+        <Card>
+          <CardContent className="p-0">
+            {/* Bungkus table dengan div overflow-x-auto dan force scroll */}
+            <div className="w-full overflow-x-scroll">
+              {currentItems?.length > 0 ? (
+                <div className="min-w-[900px]">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="bg-gray-50 hover:bg-gray-50">
+                        <TableHead className="w-[80px]">No.</TableHead>
+                        <TableHead>Letter Type</TableHead>
+                        <TableHead>Requested By</TableHead>
+                        <TableHead>Submission Date</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            ) : (
-              <div className="text-center py-10 container">
-                <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
-                <h3 className="mt-4 text-lg font-medium">
-                  Tidak ada pengajuan yang ditemukan
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  Coba sesuaikan pencarian atau filter Anda untuk menemukan apa
-                  yang Anda cari.
-                </p>
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+                    </TableHeader>
+                    <TableBody>
+                      {currentItems?.map((letter, key) => (
+                        <TableRow key={key} className="hover:bg-gray-50/50">
+                          <TableCell className="font-medium">
+                            {key + 1}
+                          </TableCell>
+                          <TableCell>{letter.template}</TableCell>
+                          <TableCell>{letter.username}</TableCell>
+                          <TableCell>
+                            {formattedDate(letter.submitted_at)}
+                          </TableCell>
+                          <TableCell>
+                            {renderStatusBadge(letter.status)}
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <div className="flex justify-end gap-2 flex-wrap">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleViewDetails(letter)}
+                              >
+                                <Eye className="h-4 w-4 mr-1" />
+                                View
+                              </Button>
+                              {letter.status !== "Approved" &&
+                                letter.status !== "Rejected" && (
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="text-green-600 border-green-200 hover:bg-green-50 hover:text-green-700"
+                                    onClick={() =>
+                                      handleStatusChange(letter, "Approved")
+                                    }
+                                  >
+                                    <CheckCircle className="h-4 w-4 mr-1" />
+                                    Approve
+                                  </Button>
+                                )}
+                              {letter.status !== "Approved" &&
+                                letter.status !== "Rejected" && (
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
+                                    onClick={() =>
+                                      handleStatusChange(letter, "Rejected")
+                                    }
+                                  >
+                                    <XCircle className="h-4 w-4 mr-1" />
+                                    Reject
+                                  </Button>
+                                )}
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              ) : (
+                <div className="text-center py-10 container">
+                  <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
+                  <h3 className="mt-4 text-lg font-medium">
+                    Tidak ada pengajuan yang ditemukan
+                  </h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Coba sesuaikan pencarian atau filter Anda untuk menemukan
+                    apa yang Anda cari.
+                  </p>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Pagination */}
       <div className="flex md:items-center justify-between flex-col md:flex-row gap-4">
