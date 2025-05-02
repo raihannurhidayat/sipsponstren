@@ -2,18 +2,16 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Link from "next/link";
 import React from "react";
 import SignInForm from "./_components/form/signInForm";
-import useGetUser from "@/hooks/useGetUser";
 import { redirect } from "next/navigation";
+import getUserFromServer from "@/hooks/getUserFromServer";
 
 export default async function SignInPage() {
-  const { session } = await useGetUser();
+  const { session } = await getUserFromServer();
 
   if (session) {
     redirect("/dashboard");

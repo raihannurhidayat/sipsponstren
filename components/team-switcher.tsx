@@ -24,12 +24,11 @@ export function TeamSwitcher({
 }: {
   teams: {
     name: string;
-    logo: React.ElementType;
-    plan: string;
-  }[];
+    role: string
+  };
 }) {
   const { isMobile } = useSidebar();
-  const [activeTeam, setActiveTeam] = React.useState(teams[0]);
+  const [activeTeam, setActiveTeam] = React.useState(teams);
 
   if (!activeTeam) {
     return null;
@@ -49,7 +48,7 @@ export function TeamSwitcher({
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">Sipspontren</span>
-                <span className="truncate text-xs">Admin</span>
+                <span className="truncate text-xs">{teams.role}</span>
               </div>
               {/* <ChevronsUpDown className="ml-auto" /> */}
             </SidebarMenuButton>

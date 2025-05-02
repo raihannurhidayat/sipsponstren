@@ -1,7 +1,6 @@
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,6 +17,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function HeadersForm(props: EditorFormProps) {
+  const { fieldsTemplate, setFieldsTemplate } = props;
   const form = useForm<HeaderTemplateSchema>({
     resolver: zodResolver(headerTemplateSchema),
     mode: "onChange",
@@ -39,7 +39,7 @@ export default function HeadersForm(props: EditorFormProps) {
     });
 
     return () => subscription.unsubscribe();
-  }, [form, props.fieldsTemplate, props.setFieldsTemplate]);
+  }, [form, fieldsTemplate, setFieldsTemplate]);
 
   const logoInputRef = React.useRef<HTMLInputElement>(null);
 

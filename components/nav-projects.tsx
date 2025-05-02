@@ -18,6 +18,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
+import { usePathname } from "next/navigation";
 
 export function NavProjects({
   projects,
@@ -41,13 +42,15 @@ export function NavProjects({
 }) {
   const { isMobile } = useSidebar();
 
+  const pathname = usePathname()
+
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Feature</SidebarGroupLabel>
+      {/* <SidebarGroupLabel>Feature</SidebarGroupLabel> */}
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
+            <SidebarMenuButton asChild isActive={pathname === item.url}>
               <a href={item.url}>
                 <item.icon />
                 <span>{item.name}</span>

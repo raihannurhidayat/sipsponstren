@@ -2,24 +2,12 @@
 
 import * as React from "react";
 import {
-  AudioWaveform,
-  BookOpen,
-  BookTemplate,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
+  Inbox,
   LayoutDashboardIcon,
   LetterText,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
   UsersRoundIcon,
-  ViewIcon,
 } from "lucide-react";
 
-import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
@@ -38,23 +26,10 @@ const data = {
     email: "m@example.com",
     avatar: "https://i.pravatar.cc/150?u=shadcn",
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
+  teams: {
+    name: "Acme Inc",
+    role: "Admin"
+  },
   navMain: [
     {
       title: "Kelola Pengguna",
@@ -85,15 +60,20 @@ const data = {
       icon: LetterText,
     },
     {
-      name: "Kelola Template Surat",
-      url: "/admin/templates",
-      icon: BookTemplate,
+      name: "Kelola Surat",
+      url: "/admin/manage-letters",
+      icon: Inbox,
     },
-    {
-      name: "Preview Surat",
-      url: "/admin/templates/review",
-      icon: ViewIcon,
-    },
+    // {
+    //   name: "Kelola Template Surat",
+    //   url: "/admin/templates",
+    //   icon: BookTemplate,
+    // },
+    // {
+    //   name: "Preview Surat",
+    //   url: "/admin/templates/review",
+    //   icon: ViewIcon,
+    // },
   ],
 };
 
