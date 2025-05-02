@@ -2,7 +2,12 @@
 "use client";
 import { Document, Page, Font } from "@react-pdf/renderer";
 import Html from "react-pdf-html";
-import { templateSurat, templateSuratKeterangan } from "@/constants/templates";
+import {
+  templateSurat,
+  templateSuratIzinRombongan,
+  templateSuratKeterangan,
+} from "@/constants/templates";
+
 
 // Registrasi font hanya di client side
 if (typeof window !== "undefined") {
@@ -22,6 +27,8 @@ export const PdfDocument = (props: PdfDocumentProps) => {
 
   if (props.templateType === "Surat Keterangan Santri") {
     template = templateSurat(props.data);
+  } else if (props.templateType === "Surat Izin Rombongan") {
+    template = templateSuratIzinRombongan(props.data);
   } else {
     template = templateSuratKeterangan;
   }

@@ -5,11 +5,7 @@ import { PlusSquare } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-async function TemplatesPage({ user }: WithAuthAdminProps) {
-  const templates = await prisma.template.findMany({});
-
-  console.log({ templates });
-
+async function TemplatesPage() {
   return (
     <section className="">
       <h1 className="font-semibold ">List Template</h1>

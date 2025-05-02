@@ -1,6 +1,6 @@
-'use server';
+"use server";
 
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
 
 export async function createLetter({
   userId,
@@ -22,7 +22,23 @@ export async function createLetter({
 
     return { success: true, data: newLetter };
   } catch (err) {
-    console.error('Create letter error:', err);
-    return { success: false, error: 'Failed to create letter' };
+    console.error("Create letter error:", err);
+    return { success: false, error: "Failed to create letter" };
+  }
+}
+
+export async function updateNomenclatureLetterRequest(
+  templateType: string,
+  nomenclature: string
+) {
+  try {
+    await prisma.letterType.update({
+      where: { name: templateType }, // Cari letter berdasarkan ID
+      data: {
+        nomenclature: nomenclature, // Update status
+      },
+    });
+  } catch (error) {
+    throw new Error("Failed to update status");
   }
 }

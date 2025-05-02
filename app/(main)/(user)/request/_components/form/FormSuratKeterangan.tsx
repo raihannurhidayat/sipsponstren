@@ -22,12 +22,16 @@ import useGetUserClient from "@/hooks/useGetUserClient";
 import { prisma } from "@/lib/prisma";
 import { RequestLetterProps } from "@/lib/types";
 import { SuratKeteranganSchema } from "@/lib/validation/validation-request-letter";
-import { useMutation } from "@tanstack/react-query";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { createLetter } from "./action";
+import { createLetter, updateNomenclatureLetterRequest } from "./action";
+import { nomenclatureLetterRequest } from "@/app/(main)/(admin)/admin/letter-requests/_components/actions";
+import { incrementNomenclature } from "@/constants/helpers";
+
 
 export default function FormSuratKeterangan(props: RequestLetterProps) {
   const { session } = useGetUserClient();
@@ -44,6 +48,17 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
     },
   });
 
+  const nomenclature = useQuery({
+    queryKey: ["nomenclature"],
+    queryFn: async () => {
+      const res = await nomenclatureLetterRequest(
+        props.requestLetterData.template
+      );
+
+      return res?.nomenclature;
+    },
+  });
+
   const mutation = useMutation({
     mutationKey: ["request-letter"],
     mutationFn: async () => {
@@ -56,6 +71,13 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
       if (!res.success) {
         throw new Error(res.error || "Something went wrong");
       }
+      
+      const newNomenclature = incrementNomenclature(nomenclature?.data!);
+
+      await updateNomenclatureLetterRequest(
+        props.requestLetterData.template,
+        newNomenclature
+      );
 
       return res.data;
     },
@@ -74,9 +96,15 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
   });
 
   function onSubmit(values: SuratKeteranganSchema) {
+    const value = {
+      ...values,
+      nomenclature: nomenclature?.data,
+    };
+
     props.setRequestLetterData({
       ...props.requestLetterData,
-      data: JSON.stringify(values),
+      data: JSON.stringify(value),
+
     });
 
     mutation.mutate();
@@ -85,10 +113,12 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
   return (
     <div className="w-full py-8 px-4 flex justify-center items-center">
       <Card className="w-full max-w-md mask-x-to-background">
-        {/* <CardHeader>
-          <CardTitle>Registrasi</CardTitle>
-          <CardDescription>Isi data untuk kelengkapan surat</CardDescription>
-        </CardHeader> */}
+        <CardHeader className="space-y-1">
+          <CardTitle>Form Surat Keterangan Santri</CardTitle>
+          <CardDescription>
+            Silahkan isi form dibawah ini dengan benar
+          </CardDescription>
+        </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -156,17 +186,7 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
                   </FormItem>
                 )}
               />
-
-              <Button
-                type="submit"
-                className="w-full cursor-pointer"
-                // disabled={mutation.isPending}
-              >
-                {/* {mutation.isPending ? (
-                    <Loader2 className="size-4 animate-spin" />
-                  ) : (
-                    "Sign Up"
-                   )} */}
+              <Button type="submit" className="w-full cursor-pointer">
                 Submit
               </Button>
             </form>

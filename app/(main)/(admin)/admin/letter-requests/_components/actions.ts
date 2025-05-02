@@ -19,6 +19,23 @@ export async function changeStatusLetterRequest(
   }
 }
 
+export async function nomenclatureLetterRequest(templateType: string) {
+  try {
+    const data = await prisma.letterType.findFirst({
+      where: {
+        name: templateType,
+      },
+      select: {
+        nomenclature: true,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw new Error("Failed to update status");
+  }
+}
+
 export async function updatePdfUrl(requestLetterId: string, pdfUrl: string) {
   try {
     await prisma.letter.update({
