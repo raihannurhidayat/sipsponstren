@@ -15,6 +15,7 @@ import {
 import Html from "react-pdf-html";
 import { templateSuratIzin, templateSuratIzinRombongan, templateSuratKeterangan } from "@/constants/templates";
 
+
 interface PreviewProps {
   templateFields: FieldsTemplateSchema; // Replace with the actual type if available
   setTemplateFields: (fields: FieldsTemplateSchema) => void; // Replace with the actual type if available
@@ -26,9 +27,9 @@ export default function Preview() {
     family: "Times New Roman",
     src: "/fonts/times new roman.ttf",
   });
-
-  // const html = templateSuratIzin;
+  
   const html = templateSuratIzinRombongan("");
+
 
   return (
     <PDFViewer className="min-h-screen w-full">

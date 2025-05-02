@@ -22,6 +22,7 @@ import useGetUserClient from "@/hooks/useGetUserClient";
 import { prisma } from "@/lib/prisma";
 import { RequestLetterProps } from "@/lib/types";
 import { SuratKeteranganSchema } from "@/lib/validation/validation-request-letter";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -30,6 +31,7 @@ import { toast } from "sonner";
 import { createLetter, updateNomenclatureLetterRequest } from "./action";
 import { nomenclatureLetterRequest } from "@/app/(main)/(admin)/admin/letter-requests/_components/actions";
 import { incrementNomenclature } from "@/constants/helpers";
+
 
 export default function FormSuratKeterangan(props: RequestLetterProps) {
   const { session } = useGetUserClient();
@@ -69,7 +71,7 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
       if (!res.success) {
         throw new Error(res.error || "Something went wrong");
       }
-
+      
       const newNomenclature = incrementNomenclature(nomenclature?.data!);
 
       await updateNomenclatureLetterRequest(
@@ -102,6 +104,7 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
     props.setRequestLetterData({
       ...props.requestLetterData,
       data: JSON.stringify(value),
+
     });
 
     mutation.mutate();
@@ -183,7 +186,6 @@ export default function FormSuratKeterangan(props: RequestLetterProps) {
                   </FormItem>
                 )}
               />
-
               <Button type="submit" className="w-full cursor-pointer">
                 Submit
               </Button>

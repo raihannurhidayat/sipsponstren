@@ -71,7 +71,6 @@ export default function FormCreateUser() {
           },
           onError: (ctx) => {
             toast.dismiss("sign-up");
-
             if (ctx.error.code === "USER_ALREADY_EXISTS") {
               form.setError("email", {
                 type: "required",

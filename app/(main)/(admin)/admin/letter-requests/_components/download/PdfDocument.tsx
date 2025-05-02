@@ -8,6 +8,7 @@ import {
   templateSuratKeterangan,
 } from "@/constants/templates";
 
+
 // Registrasi font hanya di client side
 if (typeof window !== "undefined") {
   Font.register({
