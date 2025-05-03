@@ -18,24 +18,16 @@ export default async function SignInPage() {
   }
 
   return (
-    <Card className="w-full max-w-md mask-x-to-background">
+    <Card className="w-full max-w-md mask-x-to-background mx-4">
       <CardHeader>
         <CardTitle>Sign In</CardTitle>
         <CardDescription>
-          Welcome back! please sign in to continue
+          Selamat datang kembali! Silakan masuk untuk melanjutkan
         </CardDescription>
       </CardHeader>
       <CardContent>
         <SignInForm />
       </CardContent>
-      {/* <CardFooter className="flex justify-center">
-        <p className="text-sm text-muted-foreground">
-          Dont&apos; t have an account yet?{" "}
-          <Link href={"/sign-up"} className="text-primary hover:underline">
-            Sign up
-          </Link>
-        </p>
-      </CardFooter> */}
     </Card>
   );
 }

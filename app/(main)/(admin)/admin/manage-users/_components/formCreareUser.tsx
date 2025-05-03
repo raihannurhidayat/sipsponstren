@@ -90,8 +90,8 @@ export default function FormCreateUser() {
   return (
     <Card className="w-full mask-x-to-background">
       <CardHeader>
-        <CardTitle>Create Account</CardTitle>
-        <CardDescription>Create account for another access</CardDescription>
+        <CardTitle>Buat Pengguna</CardTitle>
+        <CardDescription>Buat pengguna akun untuk akses sistem</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -178,7 +178,7 @@ export default function FormCreateUser() {
               {mutation.isPending ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
-                "Create Account"
+                "Buat Akun"
               )}
             </Button>
           </form>

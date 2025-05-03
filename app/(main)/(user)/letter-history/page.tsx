@@ -14,7 +14,7 @@ async function LetterHistoryPage({ user }: WithAuthUserProps) {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Submission History</h1>
+      <h1 className="text-2xl font-bold mb-6">Riwayat Pengajuan</h1>
       <SubmissionHistory letter={letter} />
     </div>
   );

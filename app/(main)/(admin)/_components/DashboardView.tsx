@@ -124,9 +124,9 @@ export default function DashboardView(props: DashboardViewProps) {
         <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-1">
           <Card>
             <CardHeader>
-              <CardTitle>Recent Updates</CardTitle>
+              <CardTitle>Pengajuan Surat Terbaru</CardTitle>
               <CardDescription>
-                The 5 most recently updated letters in the system
+                Lima Surat Terakhir Yang Diajukan Oleh Pengguna
               </CardDescription>
             </CardHeader>
             <CardContent>

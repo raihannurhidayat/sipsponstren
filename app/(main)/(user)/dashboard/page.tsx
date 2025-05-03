@@ -6,6 +6,7 @@ import {
   Clock,
   Bell,
   ArrowRight,
+  XCircleIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,21 +41,34 @@ async function DashboardPage({ user: userInfo }: WithAuthUserProps) {
   const letterApproveCountAwait = prisma.letter.count({
     where: {
       userId: userInfo.id,
-      status: "Approved"
+      status: "Approved",
     },
   });
 
-  const [letterCount, letterPendingCount, letterApproveCount] =
-    await Promise.all([
-      letterCountAwait,
-      letterPendingCountAwait,
-      letterApproveCountAwait,
-    ]);
+  const letterRejectCountAwait = prisma.letter.count({
+    where: {
+      userId: userInfo.id,
+      status: "Rejected",
+    },
+  });
+
+  const [
+    letterCount,
+    letterPendingCount,
+    letterApproveCount,
+    letterRejectCount,
+  ] = await Promise.all([
+    letterCountAwait,
+    letterPendingCountAwait,
+    letterApproveCountAwait,
+    letterRejectCountAwait,
+  ]);
 
   const stats = {
     created: letterCount,
     approved: letterApproveCount,
     pending: letterPendingCount,
+    rejected: letterRejectCount,
   };
 
   const user = {
@@ -63,47 +77,14 @@ async function DashboardPage({ user: userInfo }: WithAuthUserProps) {
     id: userInfo.id,
   };
 
-  const recentLetters = [
-    {
-      id: 1,
-      title: "Request for Transcript",
-      date: "2023-04-20",
-      status: "approved",
-    },
-    {
-      id: 2,
-      title: "Application for Leave",
-      date: "2023-04-18",
-      status: "pending",
-    },
-    {
-      id: 3,
-      title: "Recommendation Letter",
-      date: "2023-04-15",
-      status: "approved",
-    },
-  ];
-
-  const notifications = [
-    {
-      id: 1,
-      message: "Your leave application has been approved",
-      time: "2 hours ago",
-    },
-    {
-      id: 2,
-      message: "New template available: Recommendation Letter",
-      time: "Yesterday",
-    },
-  ];
-
   return (
     <div className="space-y-6">
       <section className="space-y-4">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
             <h1 className="text-2xl font-bold tracking-tight">
-              Welcome back, {user.name}
+              Selamat Datang,{" "}
+              <span className="text-muted-foreground">{user.name}</span>
             </h1>
             <p className="text-muted-foreground capitalize">{user.role}</p>
           </div>
@@ -119,32 +100,38 @@ async function DashboardPage({ user: userInfo }: WithAuthUserProps) {
       <section className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Letters</CardTitle>
+            <CardTitle className="text-sm font-medium">Total Pengajuan Surat</CardTitle>
             <FileText className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.created}</div>
-            <p className="text-xs text-muted-foreground">+2 from last month</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Approved</CardTitle>
-            <CheckCircle className="h-4 w-4 text-muted-foreground" />
+            <CheckCircle className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.approved}</div>
-            <p className="text-xs text-muted-foreground">+3 from last month</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Pending</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <Clock className="h-4 w-4 text-amber-400" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.pending}</div>
-            <p className="text-xs text-muted-foreground">-1 from last month</p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Rejected</CardTitle>
+            <XCircleIcon className="h-4 w-4 text-red-600" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.rejected}</div>
           </CardContent>
         </Card>
       </section>

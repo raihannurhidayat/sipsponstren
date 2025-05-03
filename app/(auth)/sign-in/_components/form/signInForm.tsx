@@ -33,7 +33,7 @@ export default function SignInForm() {
     mutationFn: async (values: SignInFormSchema) => {
       const { email, password } = values;
 
-      const { data, error } = await authClient.signIn.email(
+      await authClient.signIn.email(
         {
           email,
           password,
@@ -46,7 +46,7 @@ export default function SignInForm() {
               richColors: true,
             });
           },
-          onSuccess: (ctx) => {
+          onSuccess: () => {
             form.reset();
             toast.success("Proses Berhasil Dilakukan", {
               id: "sign-in",
@@ -103,7 +103,7 @@ export default function SignInForm() {
                 <Input
                   {...field}
                   type="password"
-                  placeholder="Enter your password"
+                  placeholder="Masukan password"
                 />
               </FormControl>
               <FormMessage />

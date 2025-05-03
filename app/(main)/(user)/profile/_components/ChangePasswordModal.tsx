@@ -132,17 +132,21 @@ export default function ChangePasswordModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="default" className="w-full justify-start cursor-pointer" size="lg">
+        <Button
+          variant="default"
+          className="w-full justify-start cursor-pointer"
+          size="lg"
+        >
           <KeyRound className="mr-2 h-4 w-4" />
-          Change Password
+          Ganti Password
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <DialogTitle>Change Password</DialogTitle>
+            <DialogTitle>Ganti Password</DialogTitle>
             <DialogDescription>
-              Update your password to keep your account secure.
+              Perbarui kata sandi Anda untuk menjaga keamanan akun Anda.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

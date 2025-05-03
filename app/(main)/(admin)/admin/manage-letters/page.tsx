@@ -8,7 +8,7 @@ function ManageLettersPage() {
       <div className="mx-auto max-w-7xl">
         <div className="pt-6">
           <h1 className="text-2xl font-bold tracking-tight">
-            Document Template Management
+            Kelola Template Surat
           </h1>
         </div>
         <div className="py-4">

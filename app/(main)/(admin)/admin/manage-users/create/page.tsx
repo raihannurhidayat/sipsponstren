@@ -8,10 +8,10 @@ function ManageCreateUserPage({ user }: WithAuthAdminProps) {
     <React.Fragment>
       <div className="pt-6">
         <h1 className="text-2xl font-bold tracking-tight">
-          Create User
+          Buat Akun Pengguna
         </h1>
         <p className="text-muted-foreground">
-          Create User Account For access the System
+          Buat Akun Pengguna Untuk mengakses Sistem
         </p>
       </div>
       <div className="flex flex-col lg:flex-row gap-6 ">
