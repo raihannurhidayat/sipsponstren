@@ -6,7 +6,7 @@ export default function Home() {
     <div className="min-h-screen flex items-center justify-center">
       <Button asChild>
         <Link href={"/sign-in"} className="cursor-pointer">
-          Click me
+          Click me for sign in
         </Link>
       </Button>
     </div>
