@@ -273,7 +273,7 @@ function SuratIzinRombonganFormItem(props: SuratIzinRombonganFormItemProps) {
         type="button"
         onClick={() => props.remove(props.index)}
       >
-        Remove
+        Hapus
       </Button>
     </div>
   );

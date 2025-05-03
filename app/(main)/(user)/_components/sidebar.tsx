@@ -3,42 +3,22 @@
 import * as React from "react";
 import {
   ArrowUp,
-  AudioWaveform,
-  BookOpen,
-  BookTemplate,
-  Bot,
-  Command,
-  FilePlus,
   FileText,
-  Frame,
-  GalleryVerticalEnd,
-  HelpCircle,
   LayoutDashboard,
-  LayoutDashboardIcon,
-  LetterText,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
   User,
-  UsersRoundIcon,
-  ViewIcon,
 } from "lucide-react";
 
-import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
-import { NavUser } from "@/components/nav-user";
 import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
+import { useRouter } from "next/navigation";
 
-// This is sample data.
+
 const data = {
   user: {
     name: "shadcn",
@@ -71,20 +51,18 @@ const data = {
       url: "/profile",
       icon: User,
     },
-    {
-      name: "Help & Guide",
-      url: "/help",
-      icon: HelpCircle,
-    },
   ],
 };
 
 export function SidebarUser({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+
+  const router = useRouter();
+  
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
+      <SidebarHeader onClick={() => router.push("/")} className="cursor-pointer">
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
 

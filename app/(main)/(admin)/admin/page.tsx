@@ -16,7 +16,7 @@ async function AdminPage({ user }: WithAuthAdminProps) {
         <h1 className="text-2xl font-bold tracking-tight">
           Welcome Back, <span className="capitalize">{user.name}</span>
         </h1>
-        <p className="text-muted-foreground">Please Manage It Happily ❤</p>
+        <p className="text-muted-foreground">Silakan Kelola Dengan Bahagia ❤</p>
       </div>
       <DashboardView letter={letter} />
     </div>

@@ -134,7 +134,7 @@ export default function InputFileExcel() {
           toast.error(`Gagal membuat ${user.name}`);
           await delay(1500);
         } finally {
-          resetFile()
+          resetFile();
         }
       }
     },
@@ -147,8 +147,10 @@ export default function InputFileExcel() {
   return (
     <Card className="w-full mask-x-to-background">
       <CardHeader>
-        <CardTitle>Create Account With Excel</CardTitle>
-        <CardDescription>Create account for excel file</CardDescription>
+        <CardTitle>Buat Akun Dengan Excel</CardTitle>
+        <CardDescription>
+          Buat akun dengan menggunakan file excel
+        </CardDescription>
         <DownloadExampleButton />
       </CardHeader>
       <CardContent>

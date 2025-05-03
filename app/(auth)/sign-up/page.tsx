@@ -29,12 +29,16 @@ import { useMutation } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export default function SignUpPage() {
   const router = useRouter();
+
+  useEffect(() => {
+    router.push("/sign-in");
+  }, []);
 
   const form = useForm<SignUpFormSchema>({
     mode: "onChange",

@@ -40,8 +40,6 @@ async function ProfilePage({ user }: WithAuthUserProps) {
     take: 5,
   });
 
-  
-
   return (
     <div className="container mx-auto mb-6">
       <h1 className="text-2xl font-bold mb-6">User Profile</h1>
@@ -51,7 +49,6 @@ async function ProfilePage({ user }: WithAuthUserProps) {
         <CardHeader className="bg-slate-50 pb-0">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6 py-4">
             <Avatar className="h-24 w-24 border-2 border-white shadow-sm">
-              {/* <AvatarImage src={user.photoUrl || ""} alt={user.name} /> */}
               <AvatarFallback className="text-xl bg-blue-100 text-blue-700">
                 {getInitials(userInfo.name)}
               </AvatarFallback>
@@ -63,20 +60,11 @@ async function ProfilePage({ user }: WithAuthUserProps) {
                 <Badge variant="secondary" className="font-normal">
                   {userInfo.role}
                 </Badge>
-                {/* {userInfo.department && (
-                  <Badge variant="outline" className="font-normal">
-                    {userInfo.department}
-                  </Badge>
-                )} */}
               </div>
               <div className="flex items-center text-sm text-slate-500 justify-center md:justify-start mt-2">
                 <CalendarDays className="h-4 w-4 mr-1" />
-                <span>Registered since {userInfo.registeredSince}</span>
+                <span>Terdaftar sejak {userInfo.registeredSince}</span>
               </div>
-              {/* <div className="flex items-center text-sm text-slate-500 justify-center md:justify-start">
-                <Clock className="h-4 w-4 mr-1" />
-                <span>Last login: {userInfo.lastLogin}</span>
-              </div> */}
             </div>
           </div>
         </CardHeader>
@@ -131,7 +119,7 @@ async function ProfilePage({ user }: WithAuthUserProps) {
           <div className="mt-8">
             <Separator className="my-4" />
             <h3 className="text-lg font-semibold mb-4">
-              Recent Letter Activities
+              Surat Terkini
             </h3>
             <div className="space-y-2">
               {letters.map((activity) => (

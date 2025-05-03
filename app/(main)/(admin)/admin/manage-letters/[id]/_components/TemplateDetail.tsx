@@ -221,9 +221,9 @@ export function TemplateDetail({ id }: { id: string }) {
                     </TooltipTrigger>
                     <TooltipContent>
                       <p className="max-w-xs text-xs">
-                        Nomenclature is automatically generated for each
-                        submission. The format includes letter type, year,
-                        department code, and a sequential number.
+                        Nomenclature dibuat secara otomatis untuk setiap
+                        pengajuan. Formatnya meliputi jenis surat, tahun, kode
+                        departemen, dan nomor urut.
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -231,7 +231,9 @@ export function TemplateDetail({ id }: { id: string }) {
               </div>
               <div className="space-y-3 rounded-lg border p-4">
                 <div className="grid grid-cols-2 gap-1">
-                  <span className="text-sm text-gray-500">Last Generated:</span>
+                  <span className="text-sm text-gray-500">
+                    Terakhir Dibuat:
+                  </span>
                   <span className="text-sm font-medium">
                     {decrementNomenclature(
                       template.data.letterType.nomenclature
@@ -239,7 +241,9 @@ export function TemplateDetail({ id }: { id: string }) {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-1">
-                  <span className="text-sm text-gray-500">Next Preview:</span>
+                  <span className="text-sm text-gray-500">
+                    Pratinjau Berikutnya:
+                  </span>
                   <span className="text-sm font-medium">
                     {template.data.letterType.nomenclature}
                   </span>
@@ -253,17 +257,16 @@ export function TemplateDetail({ id }: { id: string }) {
                     <DialogTrigger asChild>
                       <Button variant="outline" size="sm" className="w-full">
                         <RefreshCw className="mr-2 h-4 w-4" />
-                        Reset Nomenclature Counter
+                        Reset Nomenclature
                       </Button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle>Reset Nomenclature Counter</DialogTitle>
                         <DialogDescription>
-                          This will reset the nomenclature counter to 0001. The
-                          next generated code will be{" "}
-                          {/* {template.nomenclatureFormat.replace("XXXX", "0001")}. */}
-                          This action cannot be undone.
+                          Ini akan mengatur ulang penghitung nomenklatur ke 001.
+                          Tindakan ini tidak dapat dibatalkan. Apakah Anda yakin
+                          ingin melanjutkan?
                         </DialogDescription>
                       </DialogHeader>
                       <DialogFooter>
@@ -280,7 +283,7 @@ export function TemplateDetail({ id }: { id: string }) {
                             )
                           }
                         >
-                          Reset Counter
+                          Reset Nomenclature
                         </Button>
                       </DialogFooter>
                     </DialogContent>
@@ -295,9 +298,10 @@ export function TemplateDetail({ id }: { id: string }) {
       {/* Submission Status Control */}
       <Card>
         <CardHeader>
-          <CardTitle>Submission Status</CardTitle>
+          <CardTitle>Status Surat</CardTitle>
           <CardDescription>
-            Control whether users can submit requests for this letter template
+            Kontrol apakah pengguna dapat mengirimkan permintaan untuk templat
+            surat ini
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -305,8 +309,8 @@ export function TemplateDetail({ id }: { id: string }) {
             <div className="space-y-0.5">
               <div className="text-sm font-medium">
                 {isAvailable
-                  ? "Accepting Submissions"
-                  : "Not Accepting Submissions"}
+                  ? "Menerima Pengajuan"
+                  : "Tidak Menerima Pengajuan"}
               </div>
             </div>
             <Dialog open={statusDialogOpen} onOpenChange={setStatusDialogOpen}>
@@ -334,13 +338,13 @@ export function TemplateDetail({ id }: { id: string }) {
                 <DialogHeader>
                   <DialogTitle>
                     {isAvailable
-                      ? "Disable Submissions for this Template?"
-                      : "Enable Submissions for this Template?"}
+                      ? "Nonaktifkan Pengiriman untuk Templat ini?"
+                      : "Aktifkan Pengiriman untuk Templat ini?"}
                   </DialogTitle>
                   <DialogDescription>
                     {isAvailable
-                      ? "Users will no longer be able to submit requests for this letter template."
-                      : "Users will be able to submit requests for this letter template."}
+                      ? "Pengguna tidak dapat lagi mengajukan permintaan untuk templat surat ini."
+                      : "Pengguna dapat mengajukan permintaan untuk templat surat ini."}
                   </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
@@ -351,7 +355,9 @@ export function TemplateDetail({ id }: { id: string }) {
                     Cancel
                   </Button>
                   <Button onClick={handleStatusChange}>
-                    {isAvailable ? "Disable Submissions" : "Enable Submissions"}
+                    {isAvailable
+                      ? "Nonaktifkan Pengiriman"
+                      : "Aktifkan Pengiriman"}
                   </Button>
                 </DialogFooter>
               </DialogContent>
@@ -363,9 +369,9 @@ export function TemplateDetail({ id }: { id: string }) {
       {/* Submission Statistics */}
       <Card>
         <CardHeader>
-          <CardTitle>Submission Statistics</CardTitle>
+          <CardTitle>Statistik Pengajuan</CardTitle>
           <CardDescription>
-            Overview of submission activity for this template
+            Overview Pengajuan Surat untuk Templat ini
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -379,7 +385,7 @@ export function TemplateDetail({ id }: { id: string }) {
                   <div className="text-2xl font-bold">
                     {template.data.total}
                   </div>
-                  <div className="text-xs text-gray-500">Total Submissions</div>
+                  <div className="text-xs text-gray-500">Total Surat</div>
                 </div>
               </div>
             </div>
@@ -429,9 +435,9 @@ export function TemplateDetail({ id }: { id: string }) {
       {/* Submission Data and Activity Log Tabs */}
       <Card>
         <CardHeader>
-          <CardTitle>Submission Data</CardTitle>
+          <CardTitle>Data Pengajuan</CardTitle>
           <CardDescription>
-            View and manage all submissions for this template
+            Lihat dan kelola semua pengajuan untuk templat ini
           </CardDescription>
           <div className="mt-2 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             {/* Search Input */}
@@ -464,8 +470,7 @@ export function TemplateDetail({ id }: { id: string }) {
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
-
-                <TableHead>Submission Date</TableHead>
+                <TableHead>Tanggal Pengajuan</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-right">Action</TableHead>
               </TableRow>
@@ -523,7 +528,7 @@ export function TemplateDetail({ id }: { id: string }) {
           {/* Empty State */}
           {filteredSubmissions.length === 0 && (
             <div className="flex h-32 items-center justify-center">
-              <p className="text-sm text-gray-500">No submissions found</p>
+              <p className="text-sm text-gray-500">Tidak ada pengajuan</p>
             </div>
           )}
 

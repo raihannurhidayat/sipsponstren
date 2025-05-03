@@ -20,7 +20,7 @@ export default async function TemplatePage({
           <Link href="/admin/manage-letters">
             <Button variant="ghost" size="sm">
               <ChevronLeft className="mr-1 h-4 w-4" />
-              Back to Templates
+              Kembali
             </Button>
           </Link>
         </div>

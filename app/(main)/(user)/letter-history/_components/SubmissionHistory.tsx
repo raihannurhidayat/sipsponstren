@@ -50,7 +50,7 @@ export function SubmissionHistory(props: SubmissionHistoryProps) {
         <div className="relative w-full sm:w-72">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search submissions..."
+            placeholder="Cari surat..."
             className="pl-8"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -81,7 +81,7 @@ export function SubmissionHistory(props: SubmissionHistoryProps) {
             <SubmissionCard key={submission.id} submission={submission} />
           ))
         ) : (
-          <div className="text-center py-10">
+          <div className="text-center py-10 border border-dashed rounded-md bg-slate-50">
             <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
             <h3 className="mt-4 text-lg font-medium">
               Tidak ada pengajuan yang ditemukan
@@ -126,7 +126,7 @@ function SubmissionCard({ submission }: { submission: Letter }) {
                 <div className="flex items-center text-sm text-muted-foreground mt-1">
                   <Calendar className="mr-1 h-3.5 w-3.5" />
                   <span>
-                    Submitted on {formattedDate(submission.submitted_at)}
+                    Dikirim pada {formattedDate(submission.submitted_at)}
                   </span>
                 </div>
               </div>

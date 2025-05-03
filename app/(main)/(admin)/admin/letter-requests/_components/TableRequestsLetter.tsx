@@ -256,11 +256,9 @@ export default function TableRequestsLetter() {
     <div className="container mx-auto py-6 space-y-6 min-h-screen">
       <div className="flex justify-between md:items-center md:flex-row flex-col gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            Letter Submissions
-          </h1>
+          <h1 className="text-2xl font-bold tracking-tight">Pengajuan Surat</h1>
           <p className="text-muted-foreground">
-            Manage student letter requests and submissions
+            Kelola semua pengajuan surat dari pengguna di sini.
           </p>
         </div>
         <div className="flex md:items-center gap-2 flex-col md:flex-row">
@@ -302,9 +300,9 @@ export default function TableRequestsLetter() {
                     <TableHeader>
                       <TableRow className="bg-gray-50 hover:bg-gray-50">
                         <TableHead className="w-[80px]">No.</TableHead>
-                        <TableHead>Letter Type</TableHead>
-                        <TableHead>Requested By</TableHead>
-                        <TableHead>Submission Date</TableHead>
+                        <TableHead>Jenis Surat</TableHead>
+                        <TableHead>Pengaju</TableHead>
+                        <TableHead>Tanggal Pengajuan</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead className="text-right">Actions</TableHead>
                       </TableRow>

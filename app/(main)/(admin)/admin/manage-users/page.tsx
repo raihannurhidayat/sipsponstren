@@ -7,10 +7,10 @@ function ManageUserPage({ user }: WithAuthAdminProps) {
     <React.Fragment>
       <div className="pt-6">
         <h1 className="text-2xl font-bold tracking-tight">
-          List User
+          Daftar Pengguna
         </h1>
         <p className="text-muted-foreground">
-          Manage student access
+          kelola pengguna yang terdaftar di aplikasi ini.
         </p>
       </div>
       <ManageUSerSection />
