@@ -1,8 +1,8 @@
 import React from "react";
 import RequestView from "./_components/request-view";
-import withAuthUser, { WithAuthUserProps } from "@/layout/withAuthUser";
+import withAuthUser from "@/layout/withAuthUser";
 
-function RequestLetterPage({ user }: WithAuthUserProps) {
+function RequestLetterPage() {
   return (
     <div>
       <section className="mb-6">
