@@ -6,6 +6,7 @@ import {
   LayoutDashboardIcon,
   LetterText,
   UsersRoundIcon,
+  ChartPie,
 } from "lucide-react";
 import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
@@ -62,6 +63,11 @@ const data = {
       name: "Kelola Surat",
       url: "/admin/manage-letters",
       icon: Inbox,
+    },
+    {
+      name: "Analytics",
+      url: "/admin/analytics",
+      icon: ChartPie,
     },
     // {
     //   name: "Kelola Template Surat",
