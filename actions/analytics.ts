@@ -6,6 +6,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { renderToStream } from '@react-pdf/renderer';
 import { AnalyticsReportPdf } from '@/components/pdf/AnalyticsReportPdf';
 import { createElement } from 'react';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Helper to convert stream to buffer
 async function streamToBuffer(stream: NodeJS.ReadableStream): Promise<Buffer> {
@@ -125,13 +126,40 @@ export async function generateReport(dateRange: DateRange) {
 }
 
 async function getAIAnalysis(stats: any) {
-    // Mock AI call
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate delay
+    try {
+        const apiKey = process.env.GOOGLE_API_KEY;
+        if (!apiKey) {
+            console.warn("GOOGLE_API_KEY is not set. Using fallback message.");
+            return "Analisis AI tidak tersedia: API Key tidak ditemukan.";
+        }
 
-    return `Based on the data from ${stats.startDate.toLocaleDateString()} to ${stats.endDate.toLocaleDateString()}, there were a total of ${stats.totalSubmissions} submissions. 
-The approval rate stands at ${stats.approvalRate.toFixed(1)}%, indicating a ${stats.approvalRate > 80 ? 'healthy' : 'moderate'} acceptance flow. 
-The most requested letter type was "${stats.topLetterType}". 
-Overall, the system usage is ${stats.totalSubmissions > 50 ? 'high' : 'stable'}. Recommendation: Monitor rejection reasons for further optimization.`;
+        const genAI = new GoogleGenerativeAI(apiKey);
+        // Menggunakan model yang sudah terbukti aksesnya di akun kamu
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+        // PROMPT DIUBAH KE BAHASA INDONESIA
+        const prompt = `
+            Bertindaklah sebagai Analis Data Administrasi senior.
+            Analisis statistik pengajuan surat berikut: ${JSON.stringify(stats)}.
+            
+            Tugas:
+            1. Berikan ringkasan eksekutif profesional (maksimal 3-4 kalimat) dalam Bahasa Indonesia yang formal.
+            2. Soroti tren persetujuan (approval) atau penolakan (rejection).
+            3. Berikan 1 rekomendasi yang dapat ditindaklanjuti oleh admin.
+            
+            Format: Gunakan paragraf teks biasa saja. JANGAN gunakan format markdown (seperti **bold** atau bullet points) agar kompatibel dengan PDF generator.
+        `;
+
+        const result = await model.generateContent(prompt);
+        const response = await result.response;
+        const text = response.text();
+
+        return text;
+    } catch (error) {
+        console.error("Error generating AI analysis:", error);
+        // Fallback message juga dalam Bahasa Indonesia
+        return "Analisis AI tidak tersedia karena terjadi kesalahan sistem. Silakan tinjau statistik secara manual.";
+    }
 }
 
 export async function getReports(page: number = 1, limit: number = 5) {
