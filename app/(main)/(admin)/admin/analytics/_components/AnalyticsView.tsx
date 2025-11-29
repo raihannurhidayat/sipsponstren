@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, FileText, Download, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
+import PdfPreview from './PdfPreview';
 
 interface AnalyticReport {
   id: string;
@@ -95,7 +96,7 @@ export default function AnalyticsView({ initialReports, pagination }: AnalyticsV
         <CardContent className="flex flex-col sm:flex-row gap-4 items-end">
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <label htmlFor="start-date" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              Start Date
+              Tanggal Awal
             </label>
             <Input
               type="date"
@@ -106,7 +107,7 @@ export default function AnalyticsView({ initialReports, pagination }: AnalyticsV
           </div>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <label htmlFor="end-date" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-              End Date
+              Tanggal Akhir
             </label>
             <Input
               type="date"
@@ -122,13 +123,13 @@ export default function AnalyticsView({ initialReports, pagination }: AnalyticsV
           >
             {isPending ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="h-4 w-4 animate-spin" />
                 Generating...
               </>
             ) : (
               <>
-                <FileText className="mr-2 h-4 w-4" />
-                Generate Analysis
+                <FileText className="h-4 w-4" />
+                Buat Analisis
               </>
             )}
           </Button>
@@ -137,9 +138,9 @@ export default function AnalyticsView({ initialReports, pagination }: AnalyticsV
 
       <Card>
         <CardHeader>
-          <CardTitle>Report History</CardTitle>
+          <CardTitle>Riwayat Laporan</CardTitle>
           <CardDescription>
-            View and download previously generated analytics reports.
+            Lihat dan unduh laporan yang telah dihasilkan sebelumnya.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -147,11 +148,11 @@ export default function AnalyticsView({ initialReports, pagination }: AnalyticsV
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Date Range</TableHead>
-                  <TableHead>Submissions</TableHead>
-                  <TableHead>Approval Rate</TableHead>
-                  <TableHead>Top Letter Type</TableHead>
-                  <TableHead>Generated At</TableHead>
+                  <TableHead>Tanggal</TableHead>
+                  <TableHead>Jumlah Pengajuan</TableHead>
+                  <TableHead>Persentase Diterima</TableHead>
+                  <TableHead>Top Jenis Surat</TableHead>
+                  <TableHead>Dibuat Pada</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
@@ -159,19 +160,19 @@ export default function AnalyticsView({ initialReports, pagination }: AnalyticsV
                 {initialReports.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                      No reports generated yet.
+                      Belum ada laporan yang dihasilkan.
                     </TableCell>
                   </TableRow>
                 ) : (
                   initialReports.map((report) => (
                     <TableRow key={report.id}>
-                      <TableCell>
+                      <TableCell suppressHydrationWarning>
                         {new Date(report.startDate).toLocaleDateString()} - {new Date(report.endDate).toLocaleDateString()}
                       </TableCell>
                       <TableCell>{report.totalSubmissions}</TableCell>
                       <TableCell>{report.approvalRate.toFixed(1)}%</TableCell>
                       <TableCell>{report.topLetterType}</TableCell>
-                      <TableCell>{new Date(report.createdAt).toLocaleDateString()}</TableCell>
+                      <TableCell suppressHydrationWarning>{new Date(report.createdAt).toLocaleDateString()}</TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
                           <Dialog>
@@ -180,17 +181,15 @@ export default function AnalyticsView({ initialReports, pagination }: AnalyticsV
                                 <Eye className="h-4 w-4" />
                               </Button>
                             </DialogTrigger>
-                            <DialogContent className="max-w-4xl h-[80vh]">
-                              <DialogHeader>
+                            <DialogContent className="max-w-4xl w-full h-[90vh] flex flex-col p-0 overflow-hidden">
+                              <DialogHeader className="px-6 py-4 border-b">
                                 <DialogTitle>Report Preview</DialogTitle>
                               </DialogHeader>
-                              {selectedReport && (
-                                <iframe 
-                                  src={selectedReport.pdfUrl} 
-                                  className="w-full h-full rounded-md border"
-                                  title="Report Preview"
-                                />
-                              )}
+                              <div className="flex-1 w-full overflow-hidden bg-slate-50 relative p-4">
+                                {selectedReport && (
+                                  <PdfPreview url={selectedReport.pdfUrl} />
+                                )}
+                              </div>
                             </DialogContent>
                           </Dialog>
                           

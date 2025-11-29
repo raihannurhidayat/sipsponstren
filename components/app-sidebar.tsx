@@ -65,7 +65,7 @@ const data = {
       icon: Inbox,
     },
     {
-      name: "Analytics",
+      name: "Analisis dan Laporan",
       url: "/admin/analytics",
       icon: ChartPie,
     },

@@ -27,7 +27,7 @@ export default async function AnalyticsPage({
   return (
     <div className="container mx-auto py-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold tracking-tight">Analytics & Reports</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Analisis Dan Laporan</h1>
       </div>
       <AnalyticsView 
         initialReports={serializedReports} 
