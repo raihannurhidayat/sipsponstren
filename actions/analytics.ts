@@ -3,7 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { storage } from '@/config/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { renderToStream } from '@react-pdf/renderer';
+import { renderToStream, Document } from '@react-pdf/renderer';
 import { AnalyticsReportPdf } from '@/components/pdf/AnalyticsReportPdf';
 import { createElement } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -82,14 +82,16 @@ export async function generateReport(dateRange: DateRange) {
 
         // 3. Generate PDF
         const pdfStream = await renderToStream(
-            createElement(AnalyticsReportPdf, {
-                startDate: from,
-                endDate: to,
-                totalSubmissions,
-                approvalRate,
-                topLetterType,
-                aiSummary,
-            })
+            createElement(Document, {},
+                createElement(AnalyticsReportPdf, {
+                    startDate: from,
+                    endDate: to,
+                    totalSubmissions,
+                    approvalRate,
+                    topLetterType,
+                    aiSummary,
+                })
+            )
         );
 
         const pdfBuffer = await streamToBuffer(pdfStream);

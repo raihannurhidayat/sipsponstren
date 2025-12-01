@@ -119,7 +119,7 @@ export default function AnalyticsView({ initialReports, pagination }: AnalyticsV
           <Button 
             onClick={handleGenerate} 
             disabled={isPending}
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto hover:cursor-pointer"
           >
             {isPending ? (
               <>
