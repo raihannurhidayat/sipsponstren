@@ -69,7 +69,7 @@ export default function TableRequestsLetter() {
 
   // State for selected letter and modal
   const [selectedLetter, setSelectedLetter] = useState<LetterSubmission | null>(
-    null
+    null,
   );
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
 
@@ -126,18 +126,18 @@ export default function TableRequestsLetter() {
     requestLetterId: string,
     templateType: string,
     data: string,
-    username: string
+    username: string,
   ) => {
     try {
       // 1. Generate PDF as Blob
       const pdfBlob = await pdf(
-        <PdfDocument templateType={templateType} data={data} />
+        <PdfDocument templateType={templateType} data={data} />,
       ).toBlob();
 
       // 2. Upload ke Firebase Storage
       const storageRef = ref(
         storage,
-        `sipspontren/${username}_${templateType}_surat.pdf`
+        `sipspontren/${username}_${templateType}_${Date.now()}_surat.pdf`,
       );
       const snapshot = await uploadBytes(storageRef, pdfBlob);
 
@@ -168,7 +168,7 @@ export default function TableRequestsLetter() {
           data.requestLetterId,
           data.templateType,
           data.data,
-          data.username
+          data.username,
         );
       }
 

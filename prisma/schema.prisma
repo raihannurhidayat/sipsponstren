@@ -123,6 +123,7 @@ model Account {
   @@map("account")
 }
 
+
 model Verification {
   id         String    @id
   identifier String
@@ -132,4 +133,18 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model AnalyticReport {
+  id               String   @id @default(cuid())
+  startDate        DateTime
+  endDate          DateTime
+  totalSubmissions Int
+  approvalRate     Float
+  topLetterType    String
+  aiSummary        String   @db.Text
+  pdfUrl           String
+  createdAt        DateTime @default(now())
+
+  @@map("analytic_reports")
 }
