@@ -137,7 +137,7 @@ async function getAIAnalysis(stats: any) {
 
         const genAI = new GoogleGenerativeAI(apiKey);
         // Menggunakan model yang sudah terbukti aksesnya di akun kamu
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
         // PROMPT DIUBAH KE BAHASA INDONESIA
         const prompt = `
