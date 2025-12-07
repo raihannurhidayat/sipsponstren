@@ -65,17 +65,17 @@ export default async function LandingPage() {
       </header>
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative">
+        <section className="relative w-full min-h-[85vh] md:min-h-[600px] md:aspect-video flex items-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
-              src="/assets/banner.jpg"
+              src="/assets/background.png"
               alt="Digital workspace with organized documents"
               fill
               className="object-cover brightness-[0.7]"
               priority
             />
           </div>
-          <div className="container relative px-12 z-10 py-24 md:py-32 lg:py-40">
+          <div className="container relative px-6 md:px-12 z-10 py-24 md:py-32 lg:py-40">
             <div className="max-w-3xl space-y-5 text-white">
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
                 Sistem Manajemen Surat Pesantren
@@ -253,26 +253,6 @@ export default async function LandingPage() {
                     autentikasi dua faktor.
                   </AccordionContent>
                 </AccordionItem>
-                {/* <AccordionItem value="item-2">
-                  <AccordionTrigger>
-                    Apakah alur pengelolaan surat bisa disesuaikan?
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Bisa. Anda dapat mengatur alur persetujuan, notifikasi
-                    otomatis, hingga integrasi dengan sistem lain sesuai
-                    kebutuhan instansi Anda.
-                  </AccordionContent>
-                </AccordionItem> */}
-                {/* <AccordionItem value="item-3">
-                  <AccordionTrigger>
-                    Jenis surat atau dokumen apa saja yang dapat diunggah?
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Sistem mendukung berbagai format dokumen seperti PDF, DOCX,
-                    XLSX, gambar (JPG, PNG), dan lainnya. Dokumen dapat langsung
-                    dipratinjau tanpa perlu diunduh.
-                  </AccordionContent>
-                </AccordionItem> */}
                 <AccordionItem value="item-4">
                   <AccordionTrigger>
                     Bagaimana sistem menangani surat masuk dan keluar?
@@ -283,16 +263,6 @@ export default async function LandingPage() {
                     disetujui, lalu dikirimkan dengan jejak audit lengkap.
                   </AccordionContent>
                 </AccordionItem>
-                {/* <AccordionItem value="item-5">
-                  <AccordionTrigger>
-                    Apakah sistem ini dapat diintegrasikan dengan aplikasi lain?
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Ya, sistem mendukung integrasi API dan dapat dihubungkan
-                    dengan layanan seperti Google Workspace, Microsoft 365, dan
-                    lainnya sesuai kebutuhan organisasi Anda.
-                  </AccordionContent>
-                </AccordionItem> */}
                 <AccordionItem value="item-6">
                   <AccordionTrigger>
                     Apakah ada batasan jumlah surat atau dokumen yang disimpan?
@@ -302,17 +272,6 @@ export default async function LandingPage() {
                     kami menyediakan opsi penyimpanan tanpa batas.
                   </AccordionContent>
                 </AccordionItem>
-                {/* <AccordionItem value="item-7">
-                  <AccordionTrigger>
-                    Berapa lama waktu implementasi sistem ini?
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    Untuk instansi kecil hingga menengah, implementasi bisa
-                    dilakukan dalam 1–3 hari. Untuk kebutuhan khusus dan
-                    integrasi kompleks, proses dapat memakan waktu hingga 2–4
-                    minggu dengan dukungan teknis kami.
-                  </AccordionContent>
-                </AccordionItem> */}
               </Accordion>
             </div>
           </div>
@@ -426,141 +385,6 @@ export default async function LandingPage() {
                 </Link>
               </div>
             </div>
-            {/* <div className="space-y-4">
-              <h3 className="text-sm font-medium">Product</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link
-                    href="#features"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Features
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Pricing
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Security
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Enterprise
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Case Studies
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-sm font-medium">Resources</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Documentation
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Guides
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    API Reference
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Community
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-sm font-medium">Company</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Partners
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-muted-foreground hover:text-foreground"
-                  >
-                    Legal
-                  </Link>
-                </li>
-              </ul>
-            </div> */}
             <div className="space-y-4 max-w-lg">
               <h3 className="text-sm font-medium">Pengajuan Akun</h3>
               <p className="text-sm text-muted-foreground">
@@ -590,7 +414,7 @@ export default async function LandingPage() {
                   href="#"
                   className="text-xs text-muted-foreground hover:text-foreground"
                 >
-                  Created by @raihan_hdy
+                  Created by @kelompok_komputasi_awan
                 </Link>
                 {/* <Link
                   href="#"
