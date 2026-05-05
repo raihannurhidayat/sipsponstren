@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 
+// Pengajuan Surat Oleh Pengguna
 export async function createLetter({
   userId,
   data,
@@ -29,7 +30,7 @@ export async function createLetter({
 
 export async function updateNomenclatureLetterRequest(
   templateType: string,
-  nomenclature: string
+  nomenclature: string,
 ) {
   try {
     await prisma.letterType.update({

@@ -3,9 +3,10 @@
 import { prisma } from "@/lib/prisma";
 import { Status } from "@prisma/client";
 
+// Mengubah Status Surat (Approve/Reject)
 export async function changeStatusLetterRequest(
   requestLetterId: string,
-  status: Status
+  status: Status,
 ) {
   try {
     await prisma.letter.update({
